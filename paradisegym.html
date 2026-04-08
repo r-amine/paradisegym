@@ -6,8 +6,6 @@
     <title>Paradise Gym | Your Fitness Journey Starts Here</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -572,6 +570,11 @@
             margin-left: 10px;
             color: #00ff00;
         }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #FFD700;
+        }
 
         @media (max-width: 900px) {
             .nav-links {
@@ -814,118 +817,91 @@
     </footer>
 
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAyacp_EgkzQbAob82A1y7VrhY70MafjHY",
-            authDomain: "paradise-gym-f167a.firebaseapp.com",
-            databaseURL: "https://paradise-gym-f167a-default-rtdb.firebaseio.com",
-            projectId: "paradise-gym-f167a",
-            storageBucket: "paradise-gym-f167a.firebasestorage.app",
-            messagingSenderId: "1008615861007",
-            appId: "1:1008615861007:web:6e36eb21bf943bf0c02c7a",
-            measurementId: "G-H0XJTH6J50"
-        };
-        
-        let app, database;
-        let syncEnabled = false;
-        
-        try {
-            app = firebase.initializeApp(firebaseConfig);
-            database = firebase.database(app);
-            syncEnabled = true;
-            console.log("Firebase connected successfully!");
-        } catch(e) {
-            console.warn("Firebase connection error:", e);
-            syncEnabled = false;
-        }
-        
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD_HASH = "cGFyYWRpc2VneW0yMDI2b3Jn";
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxIi0MXQhDKHxWwT1WboovH8Z8MKPTjpejx7X7qOLEJchHID9RdcbyoKjlp1NuGqlzJ/exec";
         
         let users = [];
         let currentUser = null;
+        let isLoading = false;
         
-        function loadUsersFromLocal() {
-            const localUsers = localStorage.getItem('gymUsers');
-            if(localUsers) {
-                users = JSON.parse(localUsers);
-            } else {
-                users = [];
-            }
-            const adminExists = users.find(u => u.username === ADMIN_USERNAME);
-            if(!adminExists) {
-                users.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" });
-                saveUsersToLocal();
-            }
-        }
-        
-        function saveUsersToLocal() {
-            localStorage.setItem('gymUsers', JSON.stringify(users));
-        }
-        
-        function syncToFirebase() {
-            if(!syncEnabled || !database) return;
-            const usersToSync = users.filter(u => u.username !== ADMIN_USERNAME);
-            database.ref('users').set(usersToSync).catch(e => console.warn("Sync error:", e));
-        }
-        
-        function syncFromFirebase() {
-            if(!syncEnabled || !database) return;
-            database.ref('users').once('value', (snapshot) => {
-                const firebaseUsers = snapshot.val();
-                if(firebaseUsers && Array.isArray(firebaseUsers)) {
-                    const existingUsernames = new Set(users.map(u => u.username));
-                    for(const fbUser of firebaseUsers) {
-                        if(!existingUsernames.has(fbUser.username) && fbUser.username !== ADMIN_USERNAME) {
-                            users.push(fbUser);
-                        } else {
-                            const index = users.findIndex(u => u.username === fbUser.username);
-                            if(index !== -1 && users[index].username !== ADMIN_USERNAME) {
-                                users[index] = fbUser;
-                            }
-                        }
+        async function loadUsersFromSheet() {
+            if(isLoading) return;
+            isLoading = true;
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL);
+                const data = await response.json();
+                if(Array.isArray(data)) {
+                    users = data;
+                    const adminExists = users.find(u => u.username === ADMIN_USERNAME);
+                    if(!adminExists) {
+                        users.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" });
+                        await saveUsersToSheet();
                     }
-                    saveUsersToLocal();
-                    if(currentUser && currentUser.username !== ADMIN_USERNAME) {
-                        const updatedUser = users.find(u => u.username === currentUser.username);
-                        if(updatedUser) {
-                            currentUser = updatedUser;
-                            localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
-                            updateNavBar();
-                        }
-                    }
-                }
-            }).catch(e => console.warn("Sync from Firebase error:", e));
-        }
-        
-        function pushUserToFirebase(userData) {
-            if(!syncEnabled || !database) return;
-            database.ref('users').once('value', (snapshot) => {
-                let firebaseUsers = snapshot.val() || [];
-                const existingIndex = firebaseUsers.findIndex(u => u.username === userData.username);
-                if(existingIndex !== -1) {
-                    firebaseUsers[existingIndex] = userData;
+                    localStorage.setItem('gymUsersCache', JSON.stringify(users));
                 } else {
-                    firebaseUsers.push(userData);
+                    const cached = localStorage.getItem('gymUsersCache');
+                    if(cached) users = JSON.parse(cached);
                 }
-                database.ref('users').set(firebaseUsers);
-            });
+            } catch(e) {
+                console.error("Error loading users:", e);
+                const cached = localStorage.getItem('gymUsersCache');
+                if(cached) users = JSON.parse(cached);
+            }
+            isLoading = false;
         }
         
-        function deleteUserFromFirebase(username) {
-            if(!syncEnabled || !database) return;
-            database.ref('users').once('value', (snapshot) => {
-                let firebaseUsers = snapshot.val() || [];
-                firebaseUsers = firebaseUsers.filter(u => u.username !== username);
-                database.ref('users').set(firebaseUsers);
-            });
+        async function saveUsersToSheet() {
+            if(isLoading) return;
+            isLoading = true;
+            try {
+                for(const user of users) {
+                    if(user.username === ADMIN_USERNAME) continue;
+                    const action = user._exists ? "update" : "add";
+                    await fetch(`${GOOGLE_SHEET_URL}?action=${action}`, {
+                        method: "POST",
+                        body: JSON.stringify(user)
+                    });
+                    user._exists = true;
+                }
+            } catch(e) {
+                console.error("Error saving users:", e);
+            }
+            isLoading = false;
         }
         
-        loadUsersFromLocal();
-        if(syncEnabled) {
-            setTimeout(() => {
-                syncFromFirebase();
-                setInterval(syncFromFirebase, 5000);
-            }, 1000);
+        async function addUserToSheet(user) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=add`, {
+                    method: "POST",
+                    body: JSON.stringify(user)
+                });
+                user._exists = true;
+            } catch(e) {
+                console.error("Error adding user:", e);
+            }
+        }
+        
+        async function updateUserInSheet(user) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=update`, {
+                    method: "POST",
+                    body: JSON.stringify(user)
+                });
+            } catch(e) {
+                console.error("Error updating user:", e);
+            }
+        }
+        
+        async function deleteUserFromSheet(username) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=delete`, {
+                    method: "POST",
+                    body: JSON.stringify({ username: username })
+                });
+            } catch(e) {
+                console.error("Error deleting user:", e);
+            }
         }
         
         const authModal = document.getElementById('authModal');
@@ -984,16 +960,18 @@
             alert('Logged out successfully!');
         }
         
-        function doLogin() {
+        async function doLogin() {
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
+            
+            await loadUsersFromSheet();
             
             if(username === ADMIN_USERNAME && btoa(password) === ADMIN_PASSWORD_HASH) {
                 let adminUser = users.find(u => u.username === ADMIN_USERNAME);
                 if(!adminUser) {
                     adminUser = { username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" };
                     users.push(adminUser);
-                    saveUsersToLocal();
+                    await saveUsersToSheet();
                 }
                 currentUser = adminUser;
                 localStorage.setItem('currentGymUser', JSON.stringify(adminUser));
@@ -1015,11 +993,13 @@
             }
         }
         
-        function doSignup() {
+        async function doSignup() {
             const username = document.getElementById('signupUsername').value.trim();
             const password = document.getElementById('signupPassword').value;
             const password2 = document.getElementById('signupPassword2').value;
             const phone = document.getElementById('signupPhone').value.trim();
+            
+            await loadUsersFromSheet();
             
             if(username === ADMIN_USERNAME) {
                 document.getElementById('authError').innerText = 'Username not available';
@@ -1039,8 +1019,7 @@
             }
             const newUser = { username, password, hasSpun: false, isAdmin: false, phone: phone };
             users.push(newUser);
-            saveUsersToLocal();
-            if(syncEnabled) pushUserToFirebase(newUser);
+            await addUserToSheet(newUser);
             currentUser = newUser;
             localStorage.setItem('currentGymUser', JSON.stringify(newUser));
             updateNavBar();
@@ -1137,7 +1116,7 @@
             ctx.fillText("SPIN", centerX, centerY);
         }
         
-        function spinWheel() {
+        async function spinWheel() {
             if(spinning || !currentUser || currentUser.hasSpun || currentUser.isAdmin) return;
             spinning = true;
             const spinAngle = Math.random() * Math.PI * 2 + Math.PI * 10;
@@ -1161,7 +1140,7 @@
             requestAnimationFrame(animateSpin);
         }
         
-        function determineResult() {
+        async function determineResult() {
             const angleStep = (Math.PI * 2) / segments.length;
             let pointerAngle = (Math.PI * 3 / 2) % (Math.PI * 2);
             let rawAngle = (Math.PI * 2 - (currentAngle % (Math.PI * 2))) % (Math.PI * 2);
@@ -1172,8 +1151,7 @@
             const userIndex = users.findIndex(u => u.username === currentUser.username);
             if(userIndex !== -1) {
                 users[userIndex].hasSpun = true;
-                saveUsersToLocal();
-                if(syncEnabled) pushUserToFirebase(users[userIndex]);
+                await updateUserInSheet(currentUser);
                 localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
             }
             
@@ -1189,16 +1167,19 @@
             if(spinBtn) spinBtn.disabled = true;
         }
         
-        function openAdminPanel() {
+        async function openAdminPanel() {
             if(!currentUser || !currentUser.isAdmin) return;
             
-            if(syncEnabled) syncFromFirebase();
+            document.getElementById('adminContent').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>';
+            adminModal.classList.add('active');
+            
+            await loadUsersFromSheet();
             
             const normalUsers = users.filter(u => u.username !== ADMIN_USERNAME);
             
             const adminContent = document.getElementById('adminContent');
             adminContent.innerHTML = `
-                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym ${syncEnabled ? '<span class="sync-status">🔄 Sync Cloud Active</span>' : ''}</h2>
+                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym <span class="sync-status">🔄 Cloud Database Active</span></h2>
                 <div class="admin-stats">
                     <p><strong>📊 Statistiques :</strong></p>
                     <p>Total utilisateurs: ${normalUsers.length}</p>
@@ -1232,17 +1213,13 @@
                 </div>
                 ${normalUsers.length === 0 ? '<p style="text-align:center; margin-top:20px;">Aucun utilisateur inscrit.</p>' : ''}
             `;
-            adminModal.classList.add('active');
             
-            document.getElementById('refreshAdminBtn').addEventListener('click', () => {
-                if(syncEnabled) syncFromFirebase();
-                setTimeout(() => {
-                    users = JSON.parse(localStorage.getItem('gymUsers')) || [];
-                    openAdminPanel();
-                }, 500);
+            document.getElementById('refreshAdminBtn').addEventListener('click', async () => {
+                await loadUsersFromSheet();
+                openAdminPanel();
             });
             
-            document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
+            document.getElementById('deleteSelectedBtn').addEventListener('click', async () => {
                 const checkboxes = document.querySelectorAll('.user-checkbox:checked');
                 const usernamesToDelete = Array.from(checkboxes).map(cb => cb.getAttribute('data-username'));
                 if(usernamesToDelete.length === 0) {
@@ -1251,7 +1228,7 @@
                 }
                 if(confirm(`Supprimer ${usernamesToDelete.length} utilisateur(s) ?`)) {
                     for(const username of usernamesToDelete) {
-                        if(syncEnabled) deleteUserFromFirebase(username);
+                        await deleteUserFromSheet(username);
                     }
                     users = users.filter(u => !usernamesToDelete.includes(u.username));
                     if(currentUser && usernamesToDelete.includes(currentUser.username)) {
@@ -1259,12 +1236,11 @@
                         localStorage.removeItem('currentGymUser');
                         updateNavBar();
                     }
-                    saveUsersToLocal();
                     openAdminPanel();
                 }
             });
             
-            document.getElementById('deleteAllBtn').addEventListener('click', () => {
+            document.getElementById('deleteAllBtn').addEventListener('click', async () => {
                 const normalUserCount = users.filter(u => u.username !== ADMIN_USERNAME).length;
                 if(normalUserCount === 0) {
                     alert('Aucun utilisateur à supprimer.');
@@ -1273,7 +1249,7 @@
                 if(confirm(`⚠️ ATTENTION ! Vous allez supprimer TOUS les ${normalUserCount} utilisateurs. Cette action est irréversible. Confirmer ?`)) {
                     const normalUsersList = users.filter(u => u.username !== ADMIN_USERNAME);
                     for(const user of normalUsersList) {
-                        if(syncEnabled) deleteUserFromFirebase(user.username);
+                        await deleteUserFromSheet(user.username);
                     }
                     users = users.filter(u => u.username === ADMIN_USERNAME);
                     if(currentUser && currentUser.username !== ADMIN_USERNAME) {
@@ -1281,7 +1257,6 @@
                         localStorage.removeItem('currentGymUser');
                         updateNavBar();
                     }
-                    saveUsersToLocal();
                     openAdminPanel();
                 }
             });
@@ -1347,13 +1322,16 @@
             });
         });
         
-        if(currentUser) {
-            const storedUser = users.find(u => u.username === currentUser.username);
-            if(storedUser) currentUser = storedUser;
+        (async function init() {
+            await loadUsersFromSheet();
+            const savedUser = localStorage.getItem('currentGymUser');
+            if(savedUser) {
+                const parsed = JSON.parse(savedUser);
+                const foundUser = users.find(u => u.username === parsed.username);
+                if(foundUser) currentUser = foundUser;
+            }
             updateNavBar();
-        } else {
-            updateNavBar();
-        }
+        })();
     </script>
 </body>
 </html>
