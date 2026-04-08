@@ -151,9 +151,6 @@
             background: linear-gradient(95deg, #dc3545, #c82333);
             box-shadow: 0 6px 14px rgba(220,53,69,0.3);
         }
-        .btn-danger:hover {
-            background: linear-gradient(95deg, #c82333, #bd2130);
-        }
 
         .btn:hover {
             transform: translateY(-3px);
@@ -819,70 +816,38 @@
     <script>
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD_HASH = "cGFyYWRpc2VneW0yMDI2b3Jn";
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxIi0MXQhDKHxWwT1WboovH8Z8MKPTjpejx7X7qOLEJchHID9RdcbyoKjlp1NuGqlzJ/exec";
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxWg3KEmQRwvCRzaxYeBBQ5WquB9wEE8qYH-UURPWwQhsw5wDGdHxarCB8gd9a3CUnf/exec";
         
         let users = [];
         let currentUser = null;
-        let isLoading = false;
         
-        async function loadUsersFromSheet() {
-            if(isLoading) return;
-            isLoading = true;
+        async function loadUsers() {
             try {
                 const response = await fetch(GOOGLE_SHEET_URL);
                 const data = await response.json();
                 if(Array.isArray(data)) {
                     users = data;
-                    const adminExists = users.find(u => u.username === ADMIN_USERNAME);
-                    if(!adminExists) {
-                        users.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" });
-                        await saveUsersToSheet();
-                    }
                     localStorage.setItem('gymUsersCache', JSON.stringify(users));
-                } else {
-                    const cached = localStorage.getItem('gymUsersCache');
-                    if(cached) users = JSON.parse(cached);
                 }
             } catch(e) {
                 console.error("Error loading users:", e);
                 const cached = localStorage.getItem('gymUsersCache');
                 if(cached) users = JSON.parse(cached);
             }
-            isLoading = false;
         }
         
-        async function saveUsersToSheet() {
-            if(isLoading) return;
-            isLoading = true;
-            try {
-                for(const user of users) {
-                    if(user.username === ADMIN_USERNAME) continue;
-                    const action = user._exists ? "update" : "add";
-                    await fetch(`${GOOGLE_SHEET_URL}?action=${action}`, {
-                        method: "POST",
-                        body: JSON.stringify(user)
-                    });
-                    user._exists = true;
-                }
-            } catch(e) {
-                console.error("Error saving users:", e);
-            }
-            isLoading = false;
-        }
-        
-        async function addUserToSheet(user) {
+        async function addUser(user) {
             try {
                 await fetch(`${GOOGLE_SHEET_URL}?action=add`, {
                     method: "POST",
                     body: JSON.stringify(user)
                 });
-                user._exists = true;
             } catch(e) {
                 console.error("Error adding user:", e);
             }
         }
         
-        async function updateUserInSheet(user) {
+        async function updateUser(user) {
             try {
                 await fetch(`${GOOGLE_SHEET_URL}?action=update`, {
                     method: "POST",
@@ -893,7 +858,7 @@
             }
         }
         
-        async function deleteUserFromSheet(username) {
+        async function deleteUserAPI(username) {
             try {
                 await fetch(`${GOOGLE_SHEET_URL}?action=delete`, {
                     method: "POST",
@@ -964,14 +929,14 @@
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value;
             
-            await loadUsersFromSheet();
+            await loadUsers();
             
             if(username === ADMIN_USERNAME && btoa(password) === ADMIN_PASSWORD_HASH) {
                 let adminUser = users.find(u => u.username === ADMIN_USERNAME);
                 if(!adminUser) {
                     adminUser = { username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" };
                     users.push(adminUser);
-                    await saveUsersToSheet();
+                    await addUser(adminUser);
                 }
                 currentUser = adminUser;
                 localStorage.setItem('currentGymUser', JSON.stringify(adminUser));
@@ -999,7 +964,7 @@
             const password2 = document.getElementById('signupPassword2').value;
             const phone = document.getElementById('signupPhone').value.trim();
             
-            await loadUsersFromSheet();
+            await loadUsers();
             
             if(username === ADMIN_USERNAME) {
                 document.getElementById('authError').innerText = 'Username not available';
@@ -1019,7 +984,7 @@
             }
             const newUser = { username, password, hasSpun: false, isAdmin: false, phone: phone };
             users.push(newUser);
-            await addUserToSheet(newUser);
+            await addUser(newUser);
             currentUser = newUser;
             localStorage.setItem('currentGymUser', JSON.stringify(newUser));
             updateNavBar();
@@ -1151,7 +1116,7 @@
             const userIndex = users.findIndex(u => u.username === currentUser.username);
             if(userIndex !== -1) {
                 users[userIndex].hasSpun = true;
-                await updateUserInSheet(currentUser);
+                await updateUser(currentUser);
                 localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
             }
             
@@ -1173,7 +1138,7 @@
             document.getElementById('adminContent').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>';
             adminModal.classList.add('active');
             
-            await loadUsersFromSheet();
+            await loadUsers();
             
             const normalUsers = users.filter(u => u.username !== ADMIN_USERNAME);
             
@@ -1215,7 +1180,7 @@
             `;
             
             document.getElementById('refreshAdminBtn').addEventListener('click', async () => {
-                await loadUsersFromSheet();
+                await loadUsers();
                 openAdminPanel();
             });
             
@@ -1228,7 +1193,7 @@
                 }
                 if(confirm(`Supprimer ${usernamesToDelete.length} utilisateur(s) ?`)) {
                     for(const username of usernamesToDelete) {
-                        await deleteUserFromSheet(username);
+                        await deleteUserAPI(username);
                     }
                     users = users.filter(u => !usernamesToDelete.includes(u.username));
                     if(currentUser && usernamesToDelete.includes(currentUser.username)) {
@@ -1249,7 +1214,7 @@
                 if(confirm(`⚠️ ATTENTION ! Vous allez supprimer TOUS les ${normalUserCount} utilisateurs. Cette action est irréversible. Confirmer ?`)) {
                     const normalUsersList = users.filter(u => u.username !== ADMIN_USERNAME);
                     for(const user of normalUsersList) {
-                        await deleteUserFromSheet(user.username);
+                        await deleteUserAPI(user.username);
                     }
                     users = users.filter(u => u.username === ADMIN_USERNAME);
                     if(currentUser && currentUser.username !== ADMIN_USERNAME) {
@@ -1323,7 +1288,7 @@
         });
         
         (async function init() {
-            await loadUsersFromSheet();
+            await loadUsers();
             const savedUser = localStorage.getItem('currentGymUser');
             if(savedUser) {
                 const parsed = JSON.parse(savedUser);
