@@ -6,6 +6,8 @@
     <title>Paradise Gym | Your Fitness Journey Starts Here</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -181,7 +183,7 @@
             background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
             padding: 40px;
             border-radius: 40px;
-            max-width: 900px;
+            max-width: 1000px;
             width: 90%;
             border: 2px solid #FFD700;
             position: relative;
@@ -565,6 +567,11 @@
             margin: 0 auto 56px auto;
             font-size: 1.1rem;
         }
+        .sync-status {
+            font-size: 0.8rem;
+            margin-left: 10px;
+            color: #00ff00;
+        }
 
         @media (max-width: 900px) {
             .nav-links {
@@ -807,11 +814,119 @@
     </footer>
 
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyacp_EgkzQbAob82A1y7VrhY70MafjHY",
+            authDomain: "paradise-gym-f167a.firebaseapp.com",
+            databaseURL: "https://paradise-gym-f167a-default-rtdb.firebaseio.com",
+            projectId: "paradise-gym-f167a",
+            storageBucket: "paradise-gym-f167a.firebasestorage.app",
+            messagingSenderId: "1008615861007",
+            appId: "1:1008615861007:web:6e36eb21bf943bf0c02c7a",
+            measurementId: "G-H0XJTH6J50"
+        };
+        
+        let app, database;
+        let syncEnabled = false;
+        
+        try {
+            app = firebase.initializeApp(firebaseConfig);
+            database = firebase.database(app);
+            syncEnabled = true;
+            console.log("Firebase connected successfully!");
+        } catch(e) {
+            console.warn("Firebase connection error:", e);
+            syncEnabled = false;
+        }
+        
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD_HASH = "cGFyYWRpc2VneW0yMDI2b3Jn";
         
-        let users = JSON.parse(localStorage.getItem('gymUsers')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('currentGymUser')) || null;
+        let users = [];
+        let currentUser = null;
+        
+        function loadUsersFromLocal() {
+            const localUsers = localStorage.getItem('gymUsers');
+            if(localUsers) {
+                users = JSON.parse(localUsers);
+            } else {
+                users = [];
+            }
+            const adminExists = users.find(u => u.username === ADMIN_USERNAME);
+            if(!adminExists) {
+                users.push({ username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" });
+                saveUsersToLocal();
+            }
+        }
+        
+        function saveUsersToLocal() {
+            localStorage.setItem('gymUsers', JSON.stringify(users));
+        }
+        
+        function syncToFirebase() {
+            if(!syncEnabled || !database) return;
+            const usersToSync = users.filter(u => u.username !== ADMIN_USERNAME);
+            database.ref('users').set(usersToSync).catch(e => console.warn("Sync error:", e));
+        }
+        
+        function syncFromFirebase() {
+            if(!syncEnabled || !database) return;
+            database.ref('users').once('value', (snapshot) => {
+                const firebaseUsers = snapshot.val();
+                if(firebaseUsers && Array.isArray(firebaseUsers)) {
+                    const existingUsernames = new Set(users.map(u => u.username));
+                    for(const fbUser of firebaseUsers) {
+                        if(!existingUsernames.has(fbUser.username) && fbUser.username !== ADMIN_USERNAME) {
+                            users.push(fbUser);
+                        } else {
+                            const index = users.findIndex(u => u.username === fbUser.username);
+                            if(index !== -1 && users[index].username !== ADMIN_USERNAME) {
+                                users[index] = fbUser;
+                            }
+                        }
+                    }
+                    saveUsersToLocal();
+                    if(currentUser && currentUser.username !== ADMIN_USERNAME) {
+                        const updatedUser = users.find(u => u.username === currentUser.username);
+                        if(updatedUser) {
+                            currentUser = updatedUser;
+                            localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
+                            updateNavBar();
+                        }
+                    }
+                }
+            }).catch(e => console.warn("Sync from Firebase error:", e));
+        }
+        
+        function pushUserToFirebase(userData) {
+            if(!syncEnabled || !database) return;
+            database.ref('users').once('value', (snapshot) => {
+                let firebaseUsers = snapshot.val() || [];
+                const existingIndex = firebaseUsers.findIndex(u => u.username === userData.username);
+                if(existingIndex !== -1) {
+                    firebaseUsers[existingIndex] = userData;
+                } else {
+                    firebaseUsers.push(userData);
+                }
+                database.ref('users').set(firebaseUsers);
+            });
+        }
+        
+        function deleteUserFromFirebase(username) {
+            if(!syncEnabled || !database) return;
+            database.ref('users').once('value', (snapshot) => {
+                let firebaseUsers = snapshot.val() || [];
+                firebaseUsers = firebaseUsers.filter(u => u.username !== username);
+                database.ref('users').set(firebaseUsers);
+            });
+        }
+        
+        loadUsersFromLocal();
+        if(syncEnabled) {
+            setTimeout(() => {
+                syncFromFirebase();
+                setInterval(syncFromFirebase, 5000);
+            }, 1000);
+        }
         
         const authModal = document.getElementById('authModal');
         const wheelModal = document.getElementById('wheelModal');
@@ -876,9 +991,9 @@
             if(username === ADMIN_USERNAME && btoa(password) === ADMIN_PASSWORD_HASH) {
                 let adminUser = users.find(u => u.username === ADMIN_USERNAME);
                 if(!adminUser) {
-                    adminUser = { username: ADMIN_USERNAME, password: btoa(password), isAdmin: true, hasSpun: false, phone: "" };
+                    adminUser = { username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" };
                     users.push(adminUser);
-                    localStorage.setItem('gymUsers', JSON.stringify(users));
+                    saveUsersToLocal();
                 }
                 currentUser = adminUser;
                 localStorage.setItem('currentGymUser', JSON.stringify(adminUser));
@@ -924,7 +1039,8 @@
             }
             const newUser = { username, password, hasSpun: false, isAdmin: false, phone: phone };
             users.push(newUser);
-            localStorage.setItem('gymUsers', JSON.stringify(users));
+            saveUsersToLocal();
+            if(syncEnabled) pushUserToFirebase(newUser);
             currentUser = newUser;
             localStorage.setItem('currentGymUser', JSON.stringify(newUser));
             updateNavBar();
@@ -1056,7 +1172,8 @@
             const userIndex = users.findIndex(u => u.username === currentUser.username);
             if(userIndex !== -1) {
                 users[userIndex].hasSpun = true;
-                localStorage.setItem('gymUsers', JSON.stringify(users));
+                saveUsersToLocal();
+                if(syncEnabled) pushUserToFirebase(users[userIndex]);
                 localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
             }
             
@@ -1072,16 +1189,16 @@
             if(spinBtn) spinBtn.disabled = true;
         }
         
-        let selectedUsers = new Set();
-        
         function openAdminPanel() {
             if(!currentUser || !currentUser.isAdmin) return;
+            
+            if(syncEnabled) syncFromFirebase();
             
             const normalUsers = users.filter(u => u.username !== ADMIN_USERNAME);
             
             const adminContent = document.getElementById('adminContent');
             adminContent.innerHTML = `
-                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym</h2>
+                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym ${syncEnabled ? '<span class="sync-status">🔄 Sync Cloud Active</span>' : ''}</h2>
                 <div class="admin-stats">
                     <p><strong>📊 Statistiques :</strong></p>
                     <p>Total utilisateurs: ${normalUsers.length}</p>
@@ -1118,8 +1235,11 @@
             adminModal.classList.add('active');
             
             document.getElementById('refreshAdminBtn').addEventListener('click', () => {
-                users = JSON.parse(localStorage.getItem('gymUsers')) || [];
-                openAdminPanel();
+                if(syncEnabled) syncFromFirebase();
+                setTimeout(() => {
+                    users = JSON.parse(localStorage.getItem('gymUsers')) || [];
+                    openAdminPanel();
+                }, 500);
             });
             
             document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
@@ -1130,13 +1250,16 @@
                     return;
                 }
                 if(confirm(`Supprimer ${usernamesToDelete.length} utilisateur(s) ?`)) {
+                    for(const username of usernamesToDelete) {
+                        if(syncEnabled) deleteUserFromFirebase(username);
+                    }
                     users = users.filter(u => !usernamesToDelete.includes(u.username));
                     if(currentUser && usernamesToDelete.includes(currentUser.username)) {
                         currentUser = null;
                         localStorage.removeItem('currentGymUser');
                         updateNavBar();
                     }
-                    localStorage.setItem('gymUsers', JSON.stringify(users));
+                    saveUsersToLocal();
                     openAdminPanel();
                 }
             });
@@ -1148,13 +1271,17 @@
                     return;
                 }
                 if(confirm(`⚠️ ATTENTION ! Vous allez supprimer TOUS les ${normalUserCount} utilisateurs. Cette action est irréversible. Confirmer ?`)) {
+                    const normalUsersList = users.filter(u => u.username !== ADMIN_USERNAME);
+                    for(const user of normalUsersList) {
+                        if(syncEnabled) deleteUserFromFirebase(user.username);
+                    }
                     users = users.filter(u => u.username === ADMIN_USERNAME);
                     if(currentUser && currentUser.username !== ADMIN_USERNAME) {
                         currentUser = null;
                         localStorage.removeItem('currentGymUser');
                         updateNavBar();
                     }
-                    localStorage.setItem('gymUsers', JSON.stringify(users));
+                    saveUsersToLocal();
                     openAdminPanel();
                 }
             });
@@ -1220,7 +1347,13 @@
             });
         });
         
-        updateNavBar();
+        if(currentUser) {
+            const storedUser = users.find(u => u.username === currentUser.username);
+            if(storedUser) currentUser = storedUser;
+            updateNavBar();
+        } else {
+            updateNavBar();
+        }
     </script>
 </body>
 </html>
