@@ -3,3 +3,8 @@
     { "source": "/", "destination": "/paradisegym.html" }
   ]
 }
+{
+  "rewrites": [
+    { "source": "/", "destination": "/index.php" }
+  ]
+}
