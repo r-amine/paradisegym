@@ -52,7 +52,6 @@
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
             background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             background-clip: text;
@@ -79,7 +78,7 @@
             cursor: pointer;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links a.active {
             color: #FFD700;
         }
 
@@ -105,7 +104,6 @@
             color: #FFD700;
             cursor: pointer;
             font-size: 0.85rem;
-            transition: 0.2s;
         }
         
         .logout-btn:hover {
@@ -147,14 +145,23 @@
             color: #1a1a1a;
         }
 
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
         .btn-danger {
             background: linear-gradient(95deg, #dc3545, #c82333);
-            box-shadow: 0 6px 14px rgba(220,53,69,0.3);
+            box-shadow: none;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(95deg, #c82333, #bd2130);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 22px rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(255, 215, 0, 0.4);
         }
 
         .modal {
@@ -178,12 +185,16 @@
             background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
             padding: 40px;
             border-radius: 40px;
-            max-width: 1000px;
+            max-width: 800px;
             width: 90%;
             border: 2px solid #FFD700;
             position: relative;
             max-height: 85vh;
             overflow-y: auto;
+        }
+
+        .modal-lg {
+            max-width: 1000px;
         }
 
         .close-modal {
@@ -204,12 +215,8 @@
             margin-bottom: 8px;
             font-weight: 500;
         }
-        .form-group label .optional {
-            color: #888;
-            font-size: 0.8rem;
-        }
 
-        .form-group input {
+        .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 12px 16px;
             border-radius: 12px;
@@ -219,7 +226,12 @@
             font-size: 1rem;
         }
 
-        .form-group input:focus {
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: #FFD700;
         }
@@ -241,44 +253,6 @@
             color: #FFD700;
             cursor: pointer;
             font-weight: 600;
-        }
-
-        .wheel-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        canvas {
-            width: 100%;
-            height: auto;
-            background: #1a1a1a;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255,215,0,0.3);
-        }
-
-        .spin-btn {
-            margin-top: 30px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-        }
-
-        .result-message {
-            margin-top: 25px;
-            padding: 20px;
-            background: #1a1a1a;
-            border-radius: 20px;
-            border-left: 5px solid #FFD700;
-            font-size: 1.1rem;
-        }
-
-        .already-played {
-            text-align: center;
-            padding: 40px;
-            background: #1a1a1a;
-            border-radius: 30px;
-            color: #FFD700;
         }
 
         .hero {
@@ -503,6 +477,179 @@
             margin-top: 12px;
         }
 
+        .reviews-section {
+            padding: 80px 0;
+            background: #0a0a0a;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .rating-summary {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .average-rating {
+            text-align: center;
+        }
+
+        .average-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #FFD700;
+        }
+
+        .stars {
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .review-card {
+            background: #141414;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #262626;
+            transition: 0.2s;
+        }
+
+        .review-card:hover {
+            border-color: #FFD70040;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .reviewer-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #1a1a1a;
+        }
+
+        .reviewer-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .review-date {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .review-rating {
+            color: #FFD700;
+        }
+
+        .review-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 15px 0 10px;
+        }
+
+        .review-comment {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .review-actions {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #262626;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            color: #FFD700;
+        }
+
+        .replies-section {
+            margin-top: 20px;
+            padding-left: 60px;
+            border-left: 2px solid #FFD70030;
+        }
+
+        .reply-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reply-author {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .reply-form {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .reply-form input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            background: #0a0a0a;
+            color: white;
+        }
+
+        .write-review-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+        }
+
         footer {
             background: #020202;
             padding: 48px 0 24px;
@@ -521,7 +668,6 @@
         }
         .footer-col h4 {
             margin-bottom: 18px;
-            font-size: 1.1rem;
             color: #FFD700;
         }
         .footer-col a {
@@ -533,7 +679,6 @@
         }
         .footer-col a:hover {
             color: #FFD700;
-            transform: translateX(5px);
         }
         .footer-col a i {
             margin-right: 8px;
@@ -544,14 +689,10 @@
             padding-top: 24px;
             border-top: 1px solid #1a1a1a;
             color: #777;
-            font-size: 0.85rem;
         }
         .copyright a {
             color: #FFD700;
             text-decoration: none;
-        }
-        .copyright a:hover {
-            text-decoration: underline;
         }
 
         table {
@@ -574,15 +715,6 @@
             border-radius: 20px;
             margin-bottom: 20px;
         }
-        .checkbox-col {
-            width: 40px;
-            text-align: center;
-        }
-        .checkbox-col input {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
         .delete-actions {
             margin: 20px 0;
             display: flex;
@@ -602,14 +734,9 @@
             margin: 0 auto 56px auto;
             font-size: 1.1rem;
         }
-        .sync-status {
-            font-size: 0.8rem;
-            margin-left: 10px;
-            color: #00ff00;
-        }
         .loading {
             text-align: center;
-            padding: 20px;
+            padding: 40px;
             color: #FFD700;
         }
 
@@ -631,8 +758,14 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-            .hours-time {
-                font-size: 1.2rem;
+            .replies-section {
+                padding-left: 20px;
+            }
+            .write-review-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -645,13 +778,13 @@
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#promo">Offers</a></li>
-                <li><a href="#features">Why Us</a></li>
-                <li><a href="#hours">Hours</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li id="wheelNavItem" style="display:none;"><a id="wheelNavBtn" style="cursor:pointer;"><i class="fas fa-gift"></i> Spin & Win</a></li>
-                <li id="adminNavItem" style="display:none;"><a id="adminPanelBtn" style="cursor:pointer;"><i class="fas fa-chart-line"></i> Admin Panel</a></li>
+                <li><a href="#home" data-page="home">Home</a></li>
+                <li><a href="#promo" data-page="promo">Offers</a></li>
+                <li><a href="#features" data-page="features">Why Us</a></li>
+                <li><a href="#hours" data-page="hours">Hours</a></li>
+                <li><a href="#reviews" data-page="reviews" class="active">Reviews</a></li>
+                <li><a href="#contact" data-page="contact">Contact</a></li>
+                <li id="adminNavItem" style="display:none;"><a id="adminPanelBtn" style="cursor:pointer;"><i class="fas fa-chart-line"></i> Admin</a></li>
                 <li id="authNavItem"><a id="openAuthModalBtn" style="cursor:pointer;"><i class="fas fa-user"></i> Login / Signup</a></li>
             </ul>
         </div>
@@ -698,15 +831,34 @@
         </div>
     </div>
 
-    <div id="wheelModal" class="modal">
-        <div class="modal-content" style="max-width: 600px;">
-            <span class="close-modal" id="closeWheelModal">&times;</span>
-            <div id="wheelContent"></div>
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeReviewModal">&times;</span>
+            <h2 style="color:#FFD700; margin-bottom:20px;">✍️ Écrire un avis</h2>
+            <div class="form-group">
+                <label>Note</label>
+                <select id="reviewRating">
+                    <option value="5">⭐⭐⭐⭐⭐ 5 étoiles</option>
+                    <option value="4">⭐⭐⭐⭐ 4 étoiles</option>
+                    <option value="3">⭐⭐⭐ 3 étoiles</option>
+                    <option value="2">⭐⭐ 2 étoiles</option>
+                    <option value="1">⭐ 1 étoile</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Titre</label>
+                <input type="text" id="reviewTitle" placeholder="Ex: Super salle !">
+            </div>
+            <div class="form-group">
+                <label>Commentaire</label>
+                <textarea id="reviewComment" placeholder="Partagez votre expérience..."></textarea>
+            </div>
+            <button class="btn" id="submitReviewBtn" style="width:100%;">Publier mon avis</button>
         </div>
     </div>
 
     <div id="adminModal" class="modal">
-        <div class="modal-content" style="max-width: 1000px;">
+        <div class="modal-content modal-lg">
             <span class="close-modal" id="closeAdminModal">&times;</span>
             <div id="adminContent"></div>
         </div>
@@ -757,7 +909,6 @@
 
         <section id="features">
             <div class="container">
-                <br>
                 <h2 class="section-title">Pourquoi Nous Choisir?</h2>
                 <p class="section-sub">Installations modernes, ambiance premium & résultats réels</p>
                 <div class="features-grid">
@@ -783,38 +934,41 @@
                     </div>
                 </div>
             </div>
-            <br><br>
         </section>
 
         <section id="hours" style="background: #0d0d0d;">
             <div class="container">
-                <br>
                 <h2 class="section-title">Horaires d'Ouverture</h2>
                 <p class="section-sub">On vous attend toute la semaine pour vous aider à atteindre vos objectifs</p>
                 <div class="hours-card">
                     <i class="far fa-clock"></i>
                     <h3>📅 Horaires</h3>
-                    
                     <div class="hours-days">Lundi - Vendredi</div>
                     <div class="hours-time">08:00 - 22:00</div>
-                    
                     <div class="hours-divider"></div>
-                    
                     <div class="hours-days">Samedi</div>
                     <div class="hours-time">08:00 - 17:00</div>
-                    
                     <div class="hours-divider"></div>
-                    
                     <div class="hours-days">Dimanche</div>
                     <div class="hours-time">08:00 - 13:00</div>
                 </div>
             </div>
-            <br><br>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <div class="reviews-header">
+                    <h2 class="section-title">Ce que nos membres disent</h2>
+                    <p class="section-sub">Avis vérifiés de notre communauté Paradise Gym</p>
+                </div>
+                <div id="reviewsContainer">
+                    <div class="loading"><i class="fas fa-spinner fa-spin"></i> Chargement des avis...</div>
+                </div>
+            </div>
         </section>
 
         <section id="contact">
             <div class="container">
-                <br>
                 <h2 class="section-title">Contactez-Nous</h2>
                 <p class="section-sub">Prêt à rejoindre? Des questions? On est là pour vous.</p>
                 <div class="contact-info">
@@ -839,9 +993,10 @@
                     </div>
                 </div>
             </div>
-            <br><br>
         </section>
     </main>
+
+    <button class="btn write-review-btn" id="writeReviewBtn" style="display:none;"><i class="fas fa-star"></i> Écrire un avis</button>
 
     <footer>
         <div class="container">
@@ -849,20 +1004,19 @@
                 <div class="footer-logo">
                     <div class="logo">PARADISE<span>GYM</span></div>
                     <p>Repoussez vos limites. Entraînez-vous avec passion.</p>
-                    <p style="margin-top: 8px;">📍 Cité Chikh, Mornag</p>
+                    <p style="margin-top: 8px;">📍 Hay Chikh, Mornag</p>
                 </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigation</h4>
-                        <a href="#home">Accueil</a>
-                        <a href="#promo">Offres</a>
-                        <a href="#hours">Horaires</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Contact</h4>
-                        <a href="tel:+21670636569"><i class="fas fa-phone"></i> +216 70 636 569</a>
-                        <a href="mailto:paradisegym.mornag@gmail.com"><i class="fas fa-envelope"></i> paradisegym.mornag@gmail.com</a>
-                    </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <a href="#home">Accueil</a>
+                    <a href="#promo">Offres</a>
+                    <a href="#hours">Horaires</a>
+                    <a href="#reviews">Avis</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <a href="tel:+21670636569"><i class="fas fa-phone"></i> +216 70 636 569</a>
+                    <a href="mailto:paradisegym.mornag@gmail.com"><i class="fas fa-envelope"></i> paradisegym.mornag@gmail.com</a>
                 </div>
             </div>
             <div class="copyright">
@@ -874,9 +1028,10 @@
     <script>
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD_HASH = "cGFyYWRpc2VneW0yMDI2b3Jn";
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxWg3KEmQRwvCRzaxYeBBQ5WquB9wEE8qYH-UURPWwQhsw5wDGdHxarCB8gd9a3CUnf/exec";
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbytFyfupFNsEEffBh-eLyt4NkPL47_B2YRVl69drkeecqVlje-ZBSob3-cA0fxHHEgsQA/exec";
         
         let users = [];
+        let reviews = [];
         let currentUser = null;
         
         async function loadUsers() {
@@ -888,32 +1043,72 @@
                     localStorage.setItem('gymUsersCache', JSON.stringify(users));
                 }
             } catch(e) {
-                console.error("Error loading users:", e);
                 const cached = localStorage.getItem('gymUsersCache');
                 if(cached) users = JSON.parse(cached);
             }
         }
         
-        async function addUser(user) {
+        async function loadReviews() {
+            try {
+                const response = await fetch(`${GOOGLE_SHEET_URL}?action=reviews`);
+                const data = await response.json();
+                if(Array.isArray(data)) {
+                    reviews = data.sort((a,b) => new Date(b.date) - new Date(a.date));
+                }
+            } catch(e) {
+                console.error("Error loading reviews:", e);
+            }
+        }
+        
+        async function addReview(rating, title, comment) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=add_review`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        username: currentUser.username,
+                        rating: parseInt(rating),
+                        title: title,
+                        comment: comment
+                    })
+                });
+            } catch(e) {
+                console.error("Error adding review:", e);
+            }
+        }
+        
+        async function addReply(reviewId, reply) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=add_reply`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        reviewId: reviewId,
+                        username: currentUser.username,
+                        reply: reply
+                    })
+                });
+            } catch(e) {
+                console.error("Error adding reply:", e);
+            }
+        }
+        
+        async function deleteReviewAPI(reviewId) {
+            try {
+                await fetch(`${GOOGLE_SHEET_URL}?action=delete_review`, {
+                    method: "POST",
+                    body: JSON.stringify({ reviewId: reviewId })
+                });
+            } catch(e) {
+                console.error("Error deleting review:", e);
+            }
+        }
+        
+        async function addUserAPI(user) {
             try {
                 await fetch(`${GOOGLE_SHEET_URL}?action=add`, {
                     method: "POST",
                     body: JSON.stringify(user)
                 });
-            } catch(e) {
-                console.error("Error adding user:", e);
-            }
-        }
-        
-        async function updateUser(user) {
-            try {
-                await fetch(`${GOOGLE_SHEET_URL}?action=update`, {
-                    method: "POST",
-                    body: JSON.stringify(user)
-                });
-            } catch(e) {
-                console.error("Error updating user:", e);
-            }
+            } catch(e) {}
         }
         
         async function deleteUserAPI(username) {
@@ -922,23 +1117,144 @@
                     method: "POST",
                     body: JSON.stringify({ username: username })
                 });
-            } catch(e) {
-                console.error("Error deleting user:", e);
+            } catch(e) {}
+        }
+        
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+        
+        function renderStars(rating) {
+            let stars = '';
+            for(let i = 1; i <= 5; i++) {
+                stars += i <= rating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
             }
+            return stars;
+        }
+        
+        function escapeHtml(text) {
+            if(!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            if(!container) return;
+            
+            if(reviews.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:40px;">📝 Aucun avis pour le moment. Soyez le premier à donner votre avis !</div>';
+                return;
+            }
+            
+            const totalRating = reviews.reduce((sum, r) => sum + r.rating, 0);
+            const avgRating = (totalRating / reviews.length).toFixed(1);
+            
+            let html = `
+                <div class="rating-summary">
+                    <div class="average-rating">
+                        <div class="average-number">${avgRating}</div>
+                        <div class="stars">${renderStars(Math.round(avgRating))}</div>
+                        <div>sur 5 étoiles</div>
+                    </div>
+                    <div class="total-reviews">
+                        <div style="font-size:2rem; font-weight:700;">${reviews.length}</div>
+                        <div>avis vérifiés</div>
+                    </div>
+                </div>
+            `;
+            
+            for(const review of reviews) {
+                const userAvatar = review.username.charAt(0).toUpperCase();
+                const isAdminUser = currentUser && currentUser.isAdmin;
+                const canDelete = isAdminUser || (currentUser && currentUser.username === review.username);
+                
+                html += `
+                    <div class="review-card" data-review-id="${review.id}">
+                        <div class="review-header">
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">${userAvatar}</div>
+                                <div class="reviewer-info">
+                                    <h4>${escapeHtml(review.username)}</h4>
+                                    <div class="review-date">${formatDate(review.date)}</div>
+                                </div>
+                            </div>
+                            <div class="review-rating">${renderStars(review.rating)}</div>
+                        </div>
+                        <div class="review-title">${escapeHtml(review.title)}</div>
+                        <div class="review-comment">${escapeHtml(review.comment)}</div>
+                        <div class="review-actions">
+                            <button class="action-btn reply-toggle-btn" data-id="${review.id}">
+                                <i class="fas fa-reply"></i> Répondre (${review.replies ? review.replies.length : 0})
+                            </button>
+                            ${canDelete ? `<button class="action-btn delete-review-btn" data-id="${review.id}"><i class="fas fa-trash"></i> Supprimer</button>` : ''}
+                        </div>
+                        <div class="replies-section" id="replies-${review.id}" style="display:none;">
+                            ${review.replies && review.replies.length > 0 ? review.replies.map(reply => `
+                                <div class="reply-card">
+                                    <div class="reply-header">
+                                        <span class="reply-author">${escapeHtml(reply.username)}</span>
+                                        <span class="review-date">${formatDate(reply.date)}</span>
+                                    </div>
+                                    <div>${escapeHtml(reply.reply)}</div>
+                                </div>
+                            `).join('') : ''}
+                            ${currentUser ? `
+                                <div class="reply-form">
+                                    <input type="text" placeholder="Écrire une réponse..." id="reply-input-${review.id}">
+                                    <button class="btn btn-sm submit-reply-btn" data-id="${review.id}">Envoyer</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+            
+            document.querySelectorAll('.reply-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = btn.dataset.id;
+                    const repliesDiv = document.getElementById(`replies-${id}`);
+                    repliesDiv.style.display = repliesDiv.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+            
+            document.querySelectorAll('.submit-reply-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = btn.dataset.id;
+                    const input = document.getElementById(`reply-input-${id}`);
+                    const replyText = input.value.trim();
+                    if(replyText && currentUser) {
+                        await addReply(id, replyText);
+                        await loadReviews();
+                        renderReviews();
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.delete-review-btn').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = btn.dataset.id;
+                    if(confirm('Supprimer cet avis ?')) {
+                        await deleteReviewAPI(id);
+                        await loadReviews();
+                        renderReviews();
+                    }
+                });
+            });
         }
         
         const authModal = document.getElementById('authModal');
-        const wheelModal = document.getElementById('wheelModal');
+        const reviewModal = document.getElementById('reviewModal');
         const adminModal = document.getElementById('adminModal');
         const loginFormDiv = document.getElementById('loginForm');
         const signupFormDiv = document.getElementById('signupForm');
         const authNavItem = document.getElementById('authNavItem');
-        const wheelNavItem = document.getElementById('wheelNavItem');
         const adminNavItem = document.getElementById('adminNavItem');
-        
-        function isAdmin(user) {
-            return user && user.username === ADMIN_USERNAME && user.isAdmin === true;
-        }
+        const writeReviewBtn = document.getElementById('writeReviewBtn');
         
         function updateNavBar() {
             const navLinks = document.getElementById('nav-links');
@@ -954,22 +1270,20 @@
                 document.getElementById('logoutBtn').addEventListener('click', logout);
                 
                 if(currentUser.isAdmin) {
-                    wheelNavItem.style.display = 'none';
                     adminNavItem.style.display = 'block';
                     authNavItem.style.display = 'none';
                     document.getElementById('adminPanelBtn').addEventListener('click', openAdminPanel);
                 } else {
-                    wheelNavItem.style.display = 'block';
                     adminNavItem.style.display = 'none';
                     authNavItem.style.display = 'none';
-                    document.getElementById('wheelNavBtn').addEventListener('click', () => openWheelModal());
                 }
+                writeReviewBtn.style.display = 'flex';
             } else {
-                wheelNavItem.style.display = 'none';
                 adminNavItem.style.display = 'none';
                 authNavItem.style.display = 'block';
                 authNavItem.innerHTML = '<a id="openAuthModalBtn" style="cursor:pointer;"><i class="fas fa-user"></i> Login / Signup</a>';
                 document.getElementById('openAuthModalBtn').addEventListener('click', () => openAuthModal());
+                writeReviewBtn.style.display = 'none';
             }
         }
         
@@ -980,7 +1294,8 @@
             currentUser = null;
             localStorage.removeItem('currentGymUser');
             updateNavBar();
-            alert('Logged out successfully!');
+            renderReviews();
+            alert('Déconnecté !');
         }
         
         async function doLogin() {
@@ -992,15 +1307,16 @@
             if(username === ADMIN_USERNAME && btoa(password) === ADMIN_PASSWORD_HASH) {
                 let adminUser = users.find(u => u.username === ADMIN_USERNAME);
                 if(!adminUser) {
-                    adminUser = { username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, hasSpun: false, phone: "" };
+                    adminUser = { username: ADMIN_USERNAME, password: ADMIN_PASSWORD_HASH, isAdmin: true, phone: "" };
                     users.push(adminUser);
-                    await addUser(adminUser);
+                    await addUserAPI(adminUser);
                 }
                 currentUser = adminUser;
                 localStorage.setItem('currentGymUser', JSON.stringify(adminUser));
                 updateNavBar();
                 closeAuthModal();
-                alert(`Welcome Admin ${username}!`);
+                alert(`Bienvenue Admin ${username}!`);
+                renderReviews();
                 return;
             }
             
@@ -1010,9 +1326,10 @@
                 localStorage.setItem('currentGymUser', JSON.stringify(user));
                 updateNavBar();
                 closeAuthModal();
-                alert(`Welcome back ${username}!`);
+                alert(`Bienvenue ${username}!`);
+                renderReviews();
             } else {
-                document.getElementById('authError').innerText = 'Invalid username or password';
+                document.getElementById('authError').innerText = 'Identifiants invalides';
             }
         }
         
@@ -1029,212 +1346,73 @@
                 return;
             }
             if(!username || !password) {
-                document.getElementById('authError').innerText = 'Please fill all fields';
+                document.getElementById('authError').innerText = 'Veuillez remplir tous les champs';
                 return;
             }
             if(password !== password2) {
-                document.getElementById('authError').innerText = 'Passwords do not match';
+                document.getElementById('authError').innerText = 'Les mots de passe ne correspondent pas';
                 return;
             }
             if(users.find(u => u.username === username)) {
-                document.getElementById('authError').innerText = 'Username already exists';
+                document.getElementById('authError').innerText = 'Cet utilisateur existe déjà';
                 return;
             }
-            const newUser = { username, password, hasSpun: false, isAdmin: false, phone: phone };
+            const newUser = { username, password, isAdmin: false, phone: phone };
             users.push(newUser);
-            await addUser(newUser);
+            await addUserAPI(newUser);
             currentUser = newUser;
             localStorage.setItem('currentGymUser', JSON.stringify(newUser));
             updateNavBar();
             closeAuthModal();
-            alert(`Account created! Welcome ${username}!`);
-        }
-        
-        let spinning = false;
-        let currentAngle = 0;
-        let wheelCanvas = null;
-        let ctx = null;
-        
-        const segments = [
-            { text: "???", color: "#FFD700", prize: "🎉 1 MOIS GRATUIT ! Venez à l'accueil pour profiter de votre gain." },
-            { text: "???", color: "#FFA500", prize: "🎉 SÉANCE COACH OFFERTE ! Un coach pro vous attend." },
-            { text: "???", color: "#FF8C00", prize: "🎉 3 MOIS GRATUITS ! Incroyable, venez vite en salle." },
-            { text: "???", color: "#FFB347", prize: "🎉 PAS DE GAIN cette fois... Rejouez bientôt ?" },
-            { text: "???", color: "#FFD700", prize: "🎉 1 MOIS GRATUIT ! À récupérer à l'accueil." },
-            { text: "???", color: "#FFA500", prize: "🎉 PAS DE GAIN... Merci d'avoir participé !" }
-        ];
-        
-        function openWheelModal() {
-            if(!currentUser || currentUser.isAdmin) return;
-            
-            const wheelContent = document.getElementById('wheelContent');
-            if(currentUser.hasSpun) {
-                wheelContent.innerHTML = `
-                    <div class="already-played">
-                        <i class="fas fa-check-circle" style="font-size: 3rem; color:#FFD700;"></i>
-                        <h3 style="margin: 20px 0;">Vous avez déjà joué !</h3>
-                        <p>Venez visiter Paradise Gym Mornag pour découvrir nos offres exceptionnelles !</p>
-                        <button class="btn" onclick="closeWheelModalFunc()">Fermer</button>
-                    </div>
-                `;
-            } else {
-                wheelContent.innerHTML = `
-                    <div class="wheel-container">
-                        <h2 style="text-align:center; margin-bottom:20px;">🎡 TENTEZ VOTRE CHANCE !</h2>
-                        <div class="wheel-wrapper">
-                            <canvas id="wheelCanvas" width="400" height="400"></canvas>
-                        </div>
-                        <button class="btn spin-btn" id="spinWheelBtn">TOURNER LA ROUE</button>
-                        <div id="wheelResult" class="result-message" style="display:none;"></div>
-                        <p style="text-align:center; margin-top:15px; font-size:0.9rem; color:#aaa;">Une chance par personne ! Venez découvrir votre surprise en salle.</p>
-                    </div>
-                `;
-                setTimeout(() => { drawWheel(); }, 100);
-                document.getElementById('spinWheelBtn').addEventListener('click', spinWheel);
-            }
-            wheelModal.classList.add('active');
-        }
-        
-        function closeWheelModalFunc() {
-            wheelModal.classList.remove('active');
-        }
-        
-        function drawWheel() {
-            wheelCanvas = document.getElementById('wheelCanvas');
-            if(!wheelCanvas) return;
-            ctx = wheelCanvas.getContext('2d');
-            const size = 400;
-            const centerX = size/2;
-            const centerY = size/2;
-            const radius = 190;
-            const angleStep = (Math.PI * 2) / segments.length;
-            
-            ctx.clearRect(0, 0, size, size);
-            for(let i = 0; i < segments.length; i++) {
-                const startAngle = currentAngle + i * angleStep;
-                const endAngle = startAngle + angleStep;
-                ctx.beginPath();
-                ctx.fillStyle = segments[i].color;
-                ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-                ctx.fill();
-                ctx.save();
-                ctx.translate(centerX, centerY);
-                ctx.rotate(startAngle + angleStep/2);
-                ctx.fillStyle = "#1a1a1a";
-                ctx.font = "bold 18px Poppins";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.fillText("?", 130, 10);
-                ctx.restore();
-            }
-            ctx.beginPath();
-            ctx.fillStyle = "#FFD700";
-            ctx.arc(centerX, centerY, 25, 0, Math.PI*2);
-            ctx.fill();
-            ctx.fillStyle = "#1a1a1a";
-            ctx.font = "bold 20px Poppins";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText("SPIN", centerX, centerY);
-        }
-        
-        async function spinWheel() {
-            if(spinning || !currentUser || currentUser.hasSpun || currentUser.isAdmin) return;
-            spinning = true;
-            const spinAngle = Math.random() * Math.PI * 2 + Math.PI * 10;
-            const startTime = performance.now();
-            const duration = 2500;
-            
-            function animateSpin(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(1, elapsed / duration);
-                const easeOut = 1 - Math.pow(1 - progress, 3);
-                const angle = spinAngle * easeOut;
-                currentAngle = angle % (Math.PI * 2);
-                drawWheel();
-                if(progress < 1) {
-                    requestAnimationFrame(animateSpin);
-                } else {
-                    spinning = false;
-                    determineResult();
-                }
-            }
-            requestAnimationFrame(animateSpin);
-        }
-        
-        async function determineResult() {
-            const angleStep = (Math.PI * 2) / segments.length;
-            let pointerAngle = (Math.PI * 3 / 2) % (Math.PI * 2);
-            let rawAngle = (Math.PI * 2 - (currentAngle % (Math.PI * 2))) % (Math.PI * 2);
-            let segmentIndex = Math.floor((rawAngle + pointerAngle) / angleStep) % segments.length;
-            const prizeMessage = segments[segmentIndex].prize;
-            
-            currentUser.hasSpun = true;
-            const userIndex = users.findIndex(u => u.username === currentUser.username);
-            if(userIndex !== -1) {
-                users[userIndex].hasSpun = true;
-                await updateUser(currentUser);
-                localStorage.setItem('currentGymUser', JSON.stringify(currentUser));
-            }
-            
-            const resultDiv = document.getElementById('wheelResult');
-            resultDiv.style.display = 'block';
-            resultDiv.innerHTML = `
-                <i class="fas fa-gift" style="font-size: 2rem; color:#FFD700;"></i>
-                <h3 style="margin: 10px 0;">${prizeMessage}</h3>
-                <p>Présentez ce message à l'accueil de Paradise Gym Mornag !</p>
-                <button class="btn" onclick="closeWheelModalFunc()" style="margin-top:15px;">Fermer</button>
-            `;
-            const spinBtn = document.getElementById('spinWheelBtn');
-            if(spinBtn) spinBtn.disabled = true;
+            alert(`Compte créé ! Bienvenue ${username}!`);
+            renderReviews();
         }
         
         async function openAdminPanel() {
             if(!currentUser || !currentUser.isAdmin) return;
             
-            document.getElementById('adminContent').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Loading users...</div>';
+            document.getElementById('adminContent').innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Chargement...</div>';
             adminModal.classList.add('active');
             
             await loadUsers();
+            await loadReviews();
             
             const normalUsers = users.filter(u => u.username !== ADMIN_USERNAME);
             
             const adminContent = document.getElementById('adminContent');
             adminContent.innerHTML = `
-                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym <span class="sync-status">🔄 Cloud Database Active</span></h2>
+                <h2 style="color:#FFD700; margin-bottom:20px;">👑 Admin Panel - Paradise Gym</h2>
+                
                 <div class="admin-stats">
-                    <p><strong>📊 Statistiques :</strong></p>
+                    <h3>📊 Statistiques</h3>
                     <p>Total utilisateurs: ${normalUsers.length}</p>
-                    <p>🎡 Ont joué à la roue: ${normalUsers.filter(u => u.hasSpun === true).length}</p>
-                    <p>⏳ N'ont pas encore joué: ${normalUsers.filter(u => u.hasSpun === false).length}</p>
+                    <p>📝 Nombre d'avis: ${reviews.length}</p>
+                    <p>⭐ Note moyenne: ${reviews.length > 0 ? (reviews.reduce((sum,r)=>sum+r.rating,0)/reviews.length).toFixed(1) : 'N/A'}/5</p>
                 </div>
                 
                 <div class="delete-actions">
-                    <button class="btn" id="deleteSelectedBtn" style="background:#dc3545; box-shadow:none;">🗑️ Supprimer sélectionnés</button>
-                    <button class="btn" id="deleteAllBtn" style="background:#dc3545; box-shadow:none;">⚠️ Supprimer TOUS les utilisateurs</button>
                     <button class="btn" id="refreshAdminBtn" style="background:#FFD700; color:#1a1a1a;">🔄 Rafraîchir</button>
                 </div>
                 
                 <h3 style="color:#FFD700; margin-top:20px;">📋 Liste des utilisateurs</h3>
                 <div style="overflow-x:auto;">
-                    <table id="usersTable">
+                    <table>
                         <thead>
-                            <tr><th class="checkbox-col"><input type="checkbox" id="selectAllCheckbox"></th><th>Username</th><th>Téléphone</th><th>Statut Roue</th></tr>
+                            <tr><th>Username</th><th>Téléphone</th><th>Avis postés</th><th>Action</th></tr>
                         </thead>
                         <tbody>
                             ${normalUsers.map(u => `
                                 <tr>
-                                    <td class="checkbox-col"><input type="checkbox" class="user-checkbox" data-username="${u.username}"></td>
-                                    <td>${u.username}</td>
-                                    <td>${u.phone || '-'}</td>
-                                    <td>${u.hasSpun ? '<span style="color:#FFD700;">✓ A joué</span>' : '<span style="color:#aaa;">○ Pas encore joué</span>'}</td>
+                                    <td>${escapeHtml(u.username)}</td>
+                                    <td>${escapeHtml(u.phone) || '-'}</td>
+                                    <td>${reviews.filter(r => r.username === u.username).length}</td>
+                                    <td><button class="btn btn-sm btn-danger delete-user-btn" data-username="${u.username}">Supprimer</button></td>
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
                 </div>
-                ${normalUsers.length === 0 ? '<p style="text-align:center; margin-top:20px;">Aucun utilisateur inscrit.</p>' : ''}
+                ${normalUsers.length === 0 ? '<p style="text-align:center; margin-top:20px;">Aucun utilisateur.</p>' : ''}
             `;
             
             document.getElementById('refreshAdminBtn').addEventListener('click', async () => {
@@ -1242,64 +1420,54 @@
                 openAdminPanel();
             });
             
-            document.getElementById('deleteSelectedBtn').addEventListener('click', async () => {
-                const checkboxes = document.querySelectorAll('.user-checkbox:checked');
-                const usernamesToDelete = Array.from(checkboxes).map(cb => cb.getAttribute('data-username'));
-                if(usernamesToDelete.length === 0) {
-                    alert('Aucun utilisateur sélectionné.');
-                    return;
-                }
-                if(confirm(`Supprimer ${usernamesToDelete.length} utilisateur(s) ?`)) {
-                    for(const username of usernamesToDelete) {
+            document.querySelectorAll('.delete-user-btn').forEach(btn => {
+                btn.addEventListener('click', async () => {
+                    const username = btn.dataset.username;
+                    if(confirm(`Supprimer ${username} ?`)) {
                         await deleteUserAPI(username);
+                        users = users.filter(u => u.username !== username);
+                        if(currentUser && currentUser.username === username) {
+                            currentUser = null;
+                            localStorage.removeItem('currentGymUser');
+                            updateNavBar();
+                        }
+                        openAdminPanel();
                     }
-                    users = users.filter(u => !usernamesToDelete.includes(u.username));
-                    if(currentUser && usernamesToDelete.includes(currentUser.username)) {
-                        currentUser = null;
-                        localStorage.removeItem('currentGymUser');
-                        updateNavBar();
-                    }
-                    openAdminPanel();
-                }
-            });
-            
-            document.getElementById('deleteAllBtn').addEventListener('click', async () => {
-                const normalUserCount = users.filter(u => u.username !== ADMIN_USERNAME).length;
-                if(normalUserCount === 0) {
-                    alert('Aucun utilisateur à supprimer.');
-                    return;
-                }
-                if(confirm(`⚠️ ATTENTION ! Vous allez supprimer TOUS les ${normalUserCount} utilisateurs. Cette action est irréversible. Confirmer ?`)) {
-                    const normalUsersList = users.filter(u => u.username !== ADMIN_USERNAME);
-                    for(const user of normalUsersList) {
-                        await deleteUserAPI(user.username);
-                    }
-                    users = users.filter(u => u.username === ADMIN_USERNAME);
-                    if(currentUser && currentUser.username !== ADMIN_USERNAME) {
-                        currentUser = null;
-                        localStorage.removeItem('currentGymUser');
-                        updateNavBar();
-                    }
-                    openAdminPanel();
-                }
-            });
-            
-            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-            if(selectAllCheckbox) {
-                selectAllCheckbox.addEventListener('change', (e) => {
-                    document.querySelectorAll('.user-checkbox').forEach(cb => cb.checked = e.target.checked);
                 });
-            }
+            });
         }
         
-        function closeAdminModal() {
-            adminModal.classList.remove('active');
-        }
+        document.getElementById('writeReviewBtn')?.addEventListener('click', () => {
+            if(!currentUser) {
+                openAuthModal();
+            } else {
+                reviewModal.classList.add('active');
+            }
+        });
+        
+        document.getElementById('submitReviewBtn')?.addEventListener('click', async () => {
+            const rating = document.getElementById('reviewRating').value;
+            const title = document.getElementById('reviewTitle').value.trim();
+            const comment = document.getElementById('reviewComment').value.trim();
+            
+            if(!title || !comment) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
+            
+            await addReview(rating, title, comment);
+            await loadReviews();
+            renderReviews();
+            reviewModal.classList.remove('active');
+            document.getElementById('reviewTitle').value = '';
+            document.getElementById('reviewComment').value = '';
+            alert('Avis publié ! Merci pour votre contribution.');
+        });
         
         document.querySelectorAll('.close-modal').forEach(el => {
             el.addEventListener('click', () => { 
                 authModal.classList.remove('active'); 
-                wheelModal.classList.remove('active');
+                reviewModal.classList.remove('active');
                 adminModal.classList.remove('active');
             });
         });
@@ -1318,13 +1486,12 @@
         
         document.getElementById('doLoginBtn')?.addEventListener('click', doLogin);
         document.getElementById('doSignupBtn')?.addEventListener('click', doSignup);
-        document.getElementById('closeWheelModal')?.addEventListener('click', closeWheelModalFunc);
-        document.getElementById('closeAdminModal')?.addEventListener('click', closeAdminModal);
+        document.getElementById('closeAdminModal')?.addEventListener('click', () => adminModal.classList.remove('active'));
         
         window.onclick = function(event) {
             if(event.target === authModal) closeAuthModal();
-            if(event.target === wheelModal) closeWheelModalFunc();
-            if(event.target === adminModal) closeAdminModal();
+            if(event.target === reviewModal) reviewModal.classList.remove('active');
+            if(event.target === adminModal) adminModal.classList.remove('active');
         };
         
         const menuToggle = document.getElementById('mobile-menu');
@@ -1340,6 +1507,9 @@
                         e.preventDefault();
                         target.scrollIntoView({ behavior: 'smooth' });
                         if(navLinks.classList.contains('show')) navLinks.classList.remove('show');
+                        
+                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                        this.classList.add('active');
                     }
                 }
             });
@@ -1347,6 +1517,7 @@
         
         (async function init() {
             await loadUsers();
+            await loadReviews();
             const savedUser = localStorage.getItem('currentGymUser');
             if(savedUser) {
                 const parsed = JSON.parse(savedUser);
@@ -1354,6 +1525,7 @@
                 if(foundUser) currentUser = foundUser;
             }
             updateNavBar();
+            renderReviews();
         })();
     </script>
 </body>
