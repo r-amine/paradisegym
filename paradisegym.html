@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
@@ -20,17 +19,14 @@
             line-height: 1.5;
             scroll-behavior: smooth;
         }
-
         h1, h2, h3, .logo, .nav-links a, .btn {
             font-family: 'Poppins', sans-serif;
         }
-
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
         }
-
         header {
             background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(8px);
@@ -40,7 +36,6 @@
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -48,7 +43,6 @@
             padding: 18px 0;
             flex-wrap: wrap;
         }
-
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
@@ -61,14 +55,12 @@
             color: white;
             background: none;
         }
-
         .nav-links {
             display: flex;
             gap: 32px;
             list-style: none;
             align-items: center;
         }
-
         .nav-links a {
             text-decoration: none;
             color: #e0e0e0;
@@ -77,11 +69,9 @@
             font-size: 1rem;
             cursor: pointer;
         }
-
         .nav-links a:hover, .nav-links a.active {
             color: #FFD700;
         }
-
         .user-info {
             display: flex;
             align-items: center;
@@ -90,12 +80,10 @@
             padding-left: 20px;
             border-left: 1px solid rgba(255,215,0,0.3);
         }
-        
         .user-name {
             color: #FFD700;
             font-weight: 600;
         }
-        
         .logout-btn {
             background: rgba(255,215,0,0.2);
             border: none;
@@ -105,19 +93,16 @@
             cursor: pointer;
             font-size: 0.85rem;
         }
-        
         .logout-btn:hover {
             background: #FFD700;
             color: #1a1a1a;
         }
-
         .menu-toggle {
             display: none;
             font-size: 1.6rem;
             cursor: pointer;
             color: white;
         }
-
         .btn {
             display: inline-block;
             background: linear-gradient(95deg, #FFD700, #FFA500);
@@ -132,38 +117,31 @@
             font-size: 0.95rem;
             box-shadow: 0 6px 14px rgba(255, 215, 0, 0.3);
         }
-
         .btn-outline {
             background: transparent;
             border: 1.5px solid #FFD700;
             color: #FFD700;
             box-shadow: none;
         }
-
         .btn-outline:hover {
             background: #FFD700;
             color: #1a1a1a;
         }
-
         .btn-sm {
             padding: 8px 20px;
             font-size: 0.85rem;
         }
-
         .btn-danger {
             background: linear-gradient(95deg, #dc3545, #c82333);
             box-shadow: none;
         }
-
         .btn-danger:hover {
             background: linear-gradient(95deg, #c82333, #bd2130);
         }
-
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 18px rgba(255, 215, 0, 0.4);
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -176,11 +154,9 @@
             justify-content: center;
             align-items: center;
         }
-
         .modal.active {
             display: flex;
         }
-
         .modal-content {
             background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
             padding: 40px;
@@ -192,11 +168,9 @@
             max-height: 85vh;
             overflow-y: auto;
         }
-
         .modal-lg {
             max-width: 1000px;
         }
-
         .close-modal {
             position: absolute;
             top: 20px;
@@ -205,17 +179,14 @@
             cursor: pointer;
             color: #FFD700;
         }
-
         .form-group {
             margin-bottom: 20px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
         }
-
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 12px 16px;
@@ -225,36 +196,30 @@
             color: white;
             font-size: 1rem;
         }
-
         .form-group textarea {
             resize: vertical;
             min-height: 100px;
         }
-
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: #FFD700;
         }
-
         .error-msg {
             color: #ff6b6b;
             font-size: 0.85rem;
             margin-top: 5px;
             display: block;
         }
-
         .switch-form {
             text-align: center;
             margin-top: 20px;
             color: #aaa;
         }
-
         .switch-form span {
             color: #FFD700;
             cursor: pointer;
             font-weight: 600;
         }
-
         .hero {
             min-height: 100vh;
             display: flex;
@@ -263,7 +228,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: "";
             position: absolute;
@@ -273,16 +237,13 @@
             opacity: 0.2;
             z-index: 0;
         }
-
         .hero .container {
             position: relative;
             z-index: 2;
         }
-
         .hero-content {
             max-width: 650px;
         }
-
         .hero-badge {
             background: rgba(255, 215, 0, 0.15);
             display: inline-block;
@@ -293,35 +254,29 @@
             color: #FFD700;
             margin-bottom: 20px;
         }
-
         .hero h1 {
             font-size: 3.8rem;
             line-height: 1.2;
             margin-bottom: 20px;
             font-weight: 800;
         }
-
         .hero h1 span {
             color: #FFD700;
         }
-
         .hero p {
             font-size: 1.2rem;
             color: #ccc;
             margin-bottom: 32px;
         }
-
         .hero-buttons {
             display: flex;
             gap: 18px;
             flex-wrap: wrap;
         }
-
         .promo-section {
             background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
             padding: 60px 0;
         }
-
         .promo-card {
             background: linear-gradient(135deg, #FFD70015, #FFA50010);
             border: 2px solid #FFD700;
@@ -331,21 +286,18 @@
             max-width: 900px;
             margin: 0 auto;
         }
-
         .promo-card h2 {
             font-size: 2.8rem;
             color: #FFD700;
             margin-bottom: 16px;
             font-weight: 800;
         }
-
         .promo-tag {
             font-size: 1.2rem;
             color: #FFD700;
             margin-bottom: 32px;
             letter-spacing: 2px;
         }
-
         .promo-grid {
             display: flex;
             justify-content: center;
@@ -353,7 +305,6 @@
             flex-wrap: wrap;
             margin: 32px 0;
         }
-
         .promo-item {
             background: #0a0a0a;
             padding: 32px;
@@ -361,32 +312,27 @@
             min-width: 240px;
             border: 1px solid #FFD70040;
         }
-
         .promo-item h3 {
             font-size: 2rem;
             color: #FFD700;
             margin-bottom: 12px;
         }
-
         .promo-price {
             font-size: 2.5rem;
             font-weight: 800;
             color: #FFD700;
             margin: 16px 0;
         }
-
         .old-price {
             text-decoration: line-through;
             color: #888;
             font-size: 1.1rem;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 32px;
         }
-
         .feature-card {
             background: #141414;
             border-radius: 28px;
@@ -407,7 +353,6 @@
         .feature-card p {
             color: #b0b0b0;
         }
-
         .hours-card {
             background: #111;
             border-radius: 28px;
@@ -444,7 +389,6 @@
             margin: 15px auto;
             opacity: 0.5;
         }
-
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -476,17 +420,14 @@
             font-weight: 700;
             margin-top: 12px;
         }
-
         .reviews-section {
             padding: 80px 0;
             background: #0a0a0a;
         }
-
         .reviews-header {
             text-align: center;
             margin-bottom: 50px;
         }
-
         .rating-summary {
             display: flex;
             justify-content: center;
@@ -495,23 +436,19 @@
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
-
         .average-rating {
             text-align: center;
         }
-
         .average-number {
             font-size: 4rem;
             font-weight: 800;
             color: #FFD700;
         }
-
         .stars {
             color: #FFD700;
             font-size: 1.2rem;
             margin: 10px 0;
         }
-
         .review-card {
             background: #141414;
             border-radius: 24px;
@@ -520,11 +457,9 @@
             border: 1px solid #262626;
             transition: 0.2s;
         }
-
         .review-card:hover {
             border-color: #FFD70040;
         }
-
         .review-header {
             display: flex;
             justify-content: space-between;
@@ -532,13 +467,11 @@
             flex-wrap: wrap;
             margin-bottom: 15px;
         }
-
         .reviewer {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .reviewer-avatar {
             width: 45px;
             height: 45px;
@@ -551,32 +484,26 @@
             font-size: 1.2rem;
             color: #1a1a1a;
         }
-
         .reviewer-info h4 {
             margin-bottom: 5px;
         }
-
         .review-date {
             font-size: 0.8rem;
             color: #888;
         }
-
         .review-rating {
             color: #FFD700;
         }
-
         .review-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin: 15px 0 10px;
         }
-
         .review-comment {
             color: #ccc;
             line-height: 1.6;
             margin-bottom: 15px;
         }
-
         .review-actions {
             display: flex;
             gap: 20px;
@@ -584,7 +511,6 @@
             padding-top: 15px;
             border-top: 1px solid #262626;
         }
-
         .action-btn {
             background: none;
             border: none;
@@ -596,41 +522,34 @@
             align-items: center;
             gap: 5px;
         }
-
         .action-btn:hover {
             color: #FFD700;
         }
-
         .replies-section {
             margin-top: 20px;
             padding-left: 60px;
             border-left: 2px solid #FFD70030;
         }
-
         .reply-card {
             background: #1a1a1a;
             border-radius: 16px;
             padding: 15px;
             margin-top: 15px;
         }
-
         .reply-header {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
         }
-
         .reply-author {
             color: #FFD700;
             font-weight: 600;
         }
-
         .reply-form {
             margin-top: 15px;
             display: flex;
             gap: 10px;
         }
-
         .reply-form input {
             flex: 1;
             padding: 10px;
@@ -639,7 +558,6 @@
             background: #0a0a0a;
             color: white;
         }
-
         .write-review-btn {
             position: fixed;
             bottom: 30px;
@@ -649,7 +567,6 @@
             border-radius: 50px;
             box-shadow: 0 4px 15px rgba(255,215,0,0.3);
         }
-
         footer {
             background: #020202;
             padding: 48px 0 24px;
@@ -694,7 +611,6 @@
             color: #FFD700;
             text-decoration: none;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -739,7 +655,6 @@
             padding: 40px;
             color: #FFD700;
         }
-
         @media (max-width: 900px) {
             .nav-links {
                 display: none;
@@ -778,12 +693,12 @@
                 <i class="fas fa-bars"></i>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home" data-page="home">Home</a></li>
-                <li><a href="#promo" data-page="promo">Offers</a></li>
-                <li><a href="#features" data-page="features">Why Us</a></li>
-                <li><a href="#hours" data-page="hours">Hours</a></li>
-                <li><a href="#reviews" data-page="reviews" class="active">Reviews</a></li>
-                <li><a href="#contact" data-page="contact">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#promo">Offers</a></li>
+                <li><a href="#features">Why Us</a></li>
+                <li><a href="#hours">Hours</a></li>
+                <li><a href="#reviews" class="active">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li id="adminNavItem" style="display:none;"><a id="adminPanelBtn" style="cursor:pointer;"><i class="fas fa-chart-line"></i> Admin</a></li>
                 <li id="authNavItem"><a id="openAuthModalBtn" style="cursor:pointer;"><i class="fas fa-user"></i> Login / Signup</a></li>
             </ul>
@@ -1028,7 +943,7 @@
     <script>
         const ADMIN_USERNAME = "admin";
         const ADMIN_PASSWORD_HASH = "cGFyYWRpc2VneW0yMDI2b3Jn";
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbytFyfupFNsEEffBh-eLyt4NkPL47_B2YRVl69drkeecqVlje-ZBSob3-cA0fxHHEgsQA/exec";
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz78q3CCy_-f5cfpcmIkElOxUytrTxkyWsZOfeG64t8D0_aYjUO_VpaUfd3h_4t8m_e/exec";
         
         let users = [];
         let reviews = [];
@@ -1507,7 +1422,6 @@
                         e.preventDefault();
                         target.scrollIntoView({ behavior: 'smooth' });
                         if(navLinks.classList.contains('show')) navLinks.classList.remove('show');
-                        
                         document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
                         this.classList.add('active');
                     }
