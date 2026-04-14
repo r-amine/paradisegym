@@ -448,19 +448,27 @@
             color: #FFD700;
             margin-bottom: 16px;
         }
+        .hours-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
         .hours-days {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             color: #FFD700;
-            margin: 16px 0 8px;
+            margin: 16px 0 5px;
         }
         .hours-time {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: white;
         }
-        .closed {
-            color: #FF6B6B;
+        .hours-divider {
+            width: 50px;
+            height: 2px;
+            background: #FFD700;
+            margin: 15px auto;
+            opacity: 0.5;
         }
 
         .contact-info {
@@ -590,6 +598,9 @@
             }
             .hero h1 {
                 font-size: 2.5rem;
+            }
+            .hours-time {
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -748,10 +759,19 @@
                 <div class="hours-card">
                     <i class="far fa-clock"></i>
                     <h3>📅 Horaires</h3>
-                    <div class="hours-days">Lundi - Samedi</div>
+                    
+                    <div class="hours-days">Lundi - Vendredi</div>
                     <div class="hours-time">08:00 - 22:00</div>
-                    <div class="hours-days" style="margin-top: 24px;">Dimanche</div>
-                    <div class="hours-time closed">Fermé</div>
+                    
+                    <div class="hours-divider"></div>
+                    
+                    <div class="hours-days">Samedi</div>
+                    <div class="hours-time">08:00 - 17:00</div>
+                    
+                    <div class="hours-divider"></div>
+                    
+                    <div class="hours-days">Dimanche</div>
+                    <div class="hours-time">08:00 - 13:00</div>
                 </div>
             </div>
         </section>
