@@ -186,6 +186,7 @@
         }
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
         .form-group label {
             display: block;
@@ -213,6 +214,25 @@
         .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
             outline: none;
             border-color: #FFD700;
+        }
+        .password-wrapper {
+            position: relative;
+        }
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            transition: 0.2s;
+            z-index: 10;
+        }
+        .toggle-password:hover {
+            color: #FFD700;
         }
         .error-msg {
             color: #ff6b6b;
@@ -694,7 +714,10 @@
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="loginPassword" placeholder="Entrez votre mot de passe">
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" placeholder="Entrez votre mot de passe">
+                        <i class="fas fa-eye toggle-password" data-target="loginPassword"></i>
+                    </div>
                 </div>
                 <button class="btn" id="doLoginBtn" style="width:100%;">Se connecter</button>
                 <div class="switch-form">Pas de compte ? <span id="switchToSignup">S'inscrire</span></div>
@@ -707,15 +730,22 @@
                 </div>
                 <div class="form-group">
                     <label>Mot de passe</label>
-                    <input type="password" id="signupPassword" placeholder="Choisissez un mot de passe">
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword" placeholder="Choisissez un mot de passe">
+                        <i class="fas fa-eye toggle-password" data-target="signupPassword"></i>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Confirmer le mot de passe</label>
-                    <input type="password" id="signupPassword2" placeholder="Confirmez votre mot de passe">
+                    <div class="password-wrapper">
+                        <input type="password" id="signupPassword2" placeholder="Confirmez votre mot de passe">
+                        <i class="fas fa-eye toggle-password" data-target="signupPassword2"></i>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Numéro de téléphone <span class="optional">(optionnel)</span></label>
-                    <input type="tel" id="signupPhone" placeholder="+216 XX XXX XXX">
+                    <input type="tel" id="signupPhone" placeholder="8 chiffres (ex: 12345678)" maxlength="8">
+                    <small style="color:#888; font-size:0.7rem;">8 chiffres uniquement</small>
                 </div>
                 <button class="btn" id="doSignupBtn" style="width:100%;">S'inscrire</button>
                 <div class="switch-form">Déjà un compte ? <span id="switchToLogin">Se connecter</span></div>
@@ -774,7 +804,6 @@
 
         <section id="features">
             <div class="container">
-                <br>
                 <h2 class="section-title">Pourquoi Nous Choisir?</h2>
                 <p class="section-sub">Installations modernes, ambiance premium & résultats réels</p>
                 <div class="features-grid">
@@ -800,12 +829,10 @@
                     </div>
                 </div>
             </div>
-            <br><br>
         </section>
 
         <section id="hours" style="background: #0d0d0d;">
             <div class="container">
-                <br>
                 <h2 class="section-title">Horaires d'Ouverture</h2>
                 <p class="section-sub">On vous attend toute la semaine pour vous aider à atteindre vos objectifs</p>
                 <div class="hours-card">
@@ -821,7 +848,6 @@
                     <div class="hours-time">08:00 - 16:00</div>
                 </div>
             </div>
-            <br>
         </section>
 
         <section id="reviews" class="reviews-section">
@@ -844,7 +870,7 @@
                     <div class="info-card">
                         <i class="fas fa-map-marker-alt"></i>
                         <h3>Notre Adresse</h3>
-                        <p>Avenue Farhat Hached, Mornag</p>
+                        <p>Hay Chikh, Mornag</p>
                         <p>Tunisie</p>
                     </div>
                     <div class="info-card">
@@ -862,7 +888,6 @@
                     </div>
                 </div>
             </div>
-            <br><br>
         </section>
     </main>
 
@@ -874,7 +899,7 @@
                 <div class="footer-logo">
                     <div class="logo">MZ<span>GYM</span></div>
                     <p>Repoussez vos limites. Entraînez-vous avec passion.</p>
-                    <p style="margin-top: 8px;">📍 Avenue Farhat Hached, Mornag</p>
+                    <p style="margin-top: 8px;">📍 Hay Chikh, Mornag</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
@@ -903,6 +928,23 @@
         let users = [];
         let reviews = [];
         let currentUser = null;
+        
+        // Toggle password visibility
+        document.querySelectorAll('.toggle-password').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                if(input.type === 'password') {
+                    input.type = 'text';
+                    this.classList.remove('fa-eye');
+                    this.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    this.classList.remove('fa-eye-slash');
+                    this.classList.add('fa-eye');
+                }
+            });
+        });
         
         function showToast(message, isError = false) {
             const toast = document.createElement('div');
@@ -1243,11 +1285,12 @@
             const username = document.getElementById('signupUsername').value.trim();
             const password = document.getElementById('signupPassword').value;
             const password2 = document.getElementById('signupPassword2').value;
-            const phone = document.getElementById('signupPhone').value.trim();
+            let phone = document.getElementById('signupPhone').value.trim();
             const btn = document.getElementById('doSignupBtn');
             
             await loadUsers();
             
+            // Validation du nom d'utilisateur
             if(username === ADMIN_USERNAME) {
                 document.getElementById('authError').innerText = 'Nom d\'utilisateur non disponible';
                 return;
@@ -1256,17 +1299,49 @@
                 document.getElementById('authError').innerText = 'Veuillez remplir tous les champs obligatoires';
                 return;
             }
+            if(username.length < 3) {
+                document.getElementById('authError').innerText = 'Le nom d\'utilisateur doit contenir au moins 3 caractères';
+                return;
+            }
+            
+            // Validation du mot de passe
             if(password !== password2) {
                 document.getElementById('authError').innerText = 'Les mots de passe ne correspondent pas';
                 return;
             }
+            if(password.length < 4) {
+                document.getElementById('authError').innerText = 'Le mot de passe doit contenir au moins 4 caractères';
+                return;
+            }
+            
+            // Validation du téléphone (si renseigné) - 8 chiffres exactement
+            if(phone) {
+                // Supprimer tous les caractères non numériques
+                let cleanPhone = phone.replace(/\D/g, '');
+                
+                // Vérifier qu'on a exactement 8 chiffres
+                if(cleanPhone.length !== 8) {
+                    document.getElementById('authError').innerText = 'Le numéro de téléphone doit contenir 8 chiffres (ex: 12345678)';
+                    return;
+                }
+                
+                // Vérifier que ce sont bien des chiffres
+                if(!/^\d{8}$/.test(cleanPhone)) {
+                    document.getElementById('authError').innerText = 'Veuillez entrer un numéro valide (8 chiffres)';
+                    return;
+                }
+                
+                // Stocker uniquement les 8 chiffres
+                phone = cleanPhone;
+            }
+            
             if(users.find(u => u.username === username)) {
                 document.getElementById('authError').innerText = 'Cet utilisateur existe déjà';
                 return;
             }
             
             setButtonLoading(btn, true);
-            const newUser = { username, password, isAdmin: false, phone: phone };
+            const newUser = { username, password, isAdmin: false, phone: phone || "" };
             users.push(newUser);
             await addUserAPI(newUser);
             currentUser = newUser;
