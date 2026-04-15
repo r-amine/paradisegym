@@ -281,6 +281,28 @@
             color: #777;
         }
         
+        .btn-whatsapp {
+            background: linear-gradient(95deg, #25D366, #128C7E);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .btn-whatsapp:hover {
+            background: linear-gradient(95deg, #128C7E, #075E54);
+        }
+        .btn-instagram {
+            background: linear-gradient(95deg, #E4405F, #833AB4);
+            box-shadow: 0 4px 12px rgba(228, 64, 95, 0.3);
+        }
+        .btn-instagram:hover {
+            background: linear-gradient(95deg, #833AB4, #5851DB);
+        }
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
         @media (max-width: 900px) {
             .nav-links {
                 display: none;
@@ -302,6 +324,9 @@
             .offres-grid {
                 grid-template-columns: 1fr;
             }
+            .section-title {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -319,6 +344,7 @@
                 <li><a href="index.html#hours">Horaires</a></li>
                 <li><a href="index.html#reviews">Avis</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="https://www.instagram.com/mz_gym01" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
             </ul>
         </div>
     </header>
@@ -328,6 +354,10 @@
             <div class="container">
                 <h1>NOS <span>OFFRES & COURS</span></h1>
                 <p>Découvrez nos programmes complets pour tous les niveaux et objectifs</p>
+                <div class="social-buttons">
+                    <a href="https://www.instagram.com/mz_gym01" target="_blank" class="btn-offre btn-instagram" style="background: linear-gradient(95deg, #E4405F, #833AB4);"><i class="fab fa-instagram"></i> Suivez-nous</a>
+                    <a href="https://wa.me/21628270916" target="_blank" class="btn-offre btn-whatsapp" style="background: linear-gradient(95deg, #25D366, #128C7E);"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                </div>
             </div>
         </section>
 
@@ -340,7 +370,7 @@
                     <!-- Musculation / Body Shape -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t39.30808-6/538031836_1175187521299749_4623600522031904389_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzcwNTcyNDU3ODIyMTI5MzY0MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=5nHJIS0TLusQ7kNvwEZtBAD&_nc_oc=Adpuw6BdJoungH9U_xGnjU3DeoUCUcImB97oBmQe-dFUgQoy6l2bC4NavppKWXZOr18&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=2LjIFJpkz8PfGEFjJB4VmA&_nc_ss=7a32e&oh=00_Af34BfgVXFDkuApaQe3uK6vdALytQ1s-oYqcaUPrYwiWKw&oe=69E49BA1" alt="Musculation">
+                            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Musculation">
                             <div class="offre-badge">POPULAIRE</div>
                         </div>
                         <div class="offre-content">
@@ -348,7 +378,7 @@
                             <p>Sculptez votre corps, perte de poids et tonification musculaire. Programme adapté pour hommes et femmes.</p>
                             <div class="offre-details">
                                 <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -356,7 +386,7 @@
                     <!-- Body Combat -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t39.30808-6/548196468_1195728795912288_6926534971215085698_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzcyMzg5MzExNDcyMjA3NTI1NA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Og3PYxr3N6IQ7kNvwHWjz3O&_nc_oc=Adq23pQmVBUDkpkxoIqIvvh3NZsBuf54rSX-XTp_CgZ9XBIM1oH3Cn8sy-fklIUeRXM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=_Tt4laMwLuuA9eyrFBJrpg&_nc_ss=7a32e&oh=00_Af3lr86z8vGpZz1IItVSMc9EflgPXStlFrY01weN4m6Zzg&oe=69E48353" alt="Body Combat">
+                            <img src="https://images.unsplash.com/photo-1549069631-28a8c1b5d9e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Body Combat">
                             <div class="offre-badge">CARDIO</div>
                         </div>
                         <div class="offre-content">
@@ -364,7 +394,7 @@
                             <p>Art martial inspiré des sports de combat. Cardio intense, défoulement et conditionnement physique.</p>
                             <div class="offre-details">
                                 <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -372,7 +402,7 @@
                     <!-- Boxe Anglaise -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t51.82787-15/669871054_17888646381464880_5711590819022802852_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=Mzg3Mzg4OTYxMDUzNTMwNDg5Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=_qRQZDVrzeAQ7kNvwGh3le9&_nc_oc=Adq8MnBwA-t6P8FGCHXZ8O_ga8HB5OvQrpbmtw7s0NB6GEsHlFMBPQTYQdvbuVydpPM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=JTHk-rXUicXUdrFUL55dhw&_nc_ss=7a32e&oh=00_Af3jdOG7lgTl8_dPzAb7413_ZNt9wFG3Xq90GW_UJ1jIhg&oe=69E497FD" alt="Boxe Anglaise">
+                            <img src="https://images.unsplash.com/photo-1552074284-5e88ef1aef18?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Boxe Anglaise">
                             <div class="offre-badge">TECHNIQUE</div>
                         </div>
                         <div class="offre-content">
@@ -380,7 +410,7 @@
                             <p>Technique, précision, défoulement et conditionnement physique. Cours pour débutants et confirmés.</p>
                             <div class="offre-details">
                                 <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -388,7 +418,7 @@
                     <!-- Danse Orientale -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t39.30808-6/599720380_1271055898379577_7011179579797804750_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=Mzc4ODM4MjIwMTM1MzU0MDY1MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=rArvKfuAdfUQ7kNvwEOobgp&_nc_oc=Adoe0kqKEK4gfdthn84BWNncQDKDS6dxCDg38nfjHYCloC4jMk8fE9hgK2ZtaTotLck&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=DDnUTTQrIvmODqec3swucQ&_nc_ss=7a32e&oh=00_Af3lbwNE42gB_SWnCPdelmmvqz4tSUKCR7FchjgO0kCCjA&oe=69E46CC5" alt="Danse Orientale">
+                            <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Danse Orientale">
                             <div class="offre-badge">BIEN-ÊTRE</div>
                         </div>
                         <div class="offre-content">
@@ -396,7 +426,7 @@
                             <p>Renforcement musculaire doux, souplesse et bien-être. Accessible à tous les niveaux.</p>
                             <div class="offre-details">
                                 <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -404,7 +434,7 @@
                     <!-- Zumba Step -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t51.82787-15/580503472_17870015589464880_5723843893663690141_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=Mzc2MzczMTQyMTAzMTA3MjQzMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyODB4MTYwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=SIBBhtfh0jAQ7kNvwFzDRV4&_nc_oc=Adp3qFlw4OfqEG1zEIL4bWCCG8QK0_FDXUFt9Enz43MrJQmh5Sl7QsYSncZ7UAGnhOc&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=iw69Jn7Dw3-45nQkI_Sp6A&_nc_ss=7a32e&oh=00_Af18KBJwcKV0oBFrxHmghyfJubv0TI_GenjXDUMlR57R2A&oe=69E48C06" alt="Zumba Step">
+                            <img src="https://images.unsplash.com/photo-1599058917765-a78b8a1c7b1c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zumba Step">
                             <div class="offre-badge">FUN</div>
                         </div>
                         <div class="offre-content">
@@ -412,7 +442,39 @@
                             <p>Fitness énergique sur des rythmes latinos. Brûlez des calories en vous amusant !</p>
                             <div class="offre-details">
                                 <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARDIO - NOUVEAU -->
+                    <div class="offre-card">
+                        <div class="offre-image">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cardio">
+                            <div class="offre-badge">ENDURANCE</div>
+                        </div>
+                        <div class="offre-content">
+                            <h3>❤️ CARDIO TRAINING</h3>
+                            <p>Améliorez votre endurance et brûlez des calories avec nos séances cardio intensives (tapis, rameur, vélo).</p>
+                            <div class="offre-details">
+                                <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL BODY WORKOUT - NOUVEAU -->
+                    <div class="offre-card">
+                        <div class="offre-image">
+                            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Total Body Workout">
+                            <div class="offre-badge">COMPLET</div>
+                        </div>
+                        <div class="offre-content">
+                            <h3>🏋️ TOTAL BODY WORKOUT</h3>
+                            <p>Entraînement complet qui sollicite tous les groupes musculaires. Force, endurance et mobilité.</p>
+                            <div class="offre-details">
+                                <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -420,15 +482,15 @@
                     <!-- Abonnement Premium -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun16-1.fna.fbcdn.net/v/t51.82787-15/626206826_17880267951464880_7980346192754511790_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzgzMDMwNTU5NTU0MzAyNDg3Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=nbb7SuTDqskQ7kNvwHboqhx&_nc_oc=AdrueTfxC3RE9a6g6eGLEuD_M5AIK85LbTT9yxNYRv5PuQg03y2nyDerzA1EnQkx3O0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun16-1.fna&_nc_gid=O49tuLeUVNxXAV5aHStl5Q&_nc_ss=7a32e&oh=00_Af1jCzQY9B5JDZzrcuM6IOJYzCerSxROefTjb5melLn-DQ&oe=69E47E2D" alt="Premium">
-                            <div class="offre-badge">STRENGTHEN</div>
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Premium">
+                            <div class="offre-badge">BEST SELLER</div>
                         </div>
                         <div class="offre-content">
-                            <h3>⭐ BOOTY SHAPE</h3>
-                            <p>Shape, lift, strengthen… and join us for the ultimate lower-body session!</p>
+                            <h3>⭐ PASS PREMIUM</h3>
+                            <p>Accès illimité à TOUS les cours + suivi personnalisé avec un coach.</p>
                             <div class="offre-details">
                                 <span class="offre-price">299 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                
+                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
                             </div>
                         </div>
                     </div>
@@ -451,11 +513,11 @@
                 <div class="footer-logo">
                     <div class="logo">MZ<span>GYM</span></div>
                     <p>Repoussez vos limites. Entraînez-vous avec passion.</p>
-                    <p style="margin-top: 8px;">📍 Avenue Farhat Hached, Mornag</p>
+                    <p style="margin-top: 8px;">📍 Hay Chikh, Mornag</p>
                 </div>
                 <div class="footer-col">
                     <h4>Navigation</h4>
-                    <a href="index.html#home">Accueil</a>
+                    <a href="index.html">Accueil</a>
                     <a href="offres.html">Offres</a>
                     <a href="index.html#hours">Horaires</a>
                     <a href="index.html#reviews">Avis</a>
@@ -463,11 +525,13 @@
                 <div class="footer-col">
                     <h4>Contact</h4>
                     <a href="tel:+21628352707"><i class="fas fa-phone"></i> +216 28 352 707</a>
+                    <a href="https://wa.me/21628270916" target="_blank"><i class="fab fa-whatsapp"></i> +216 28 270 916</a>
+                    <a href="https://www.instagram.com/mz_gym01" target="_blank"><i class="fab fa-instagram"></i> @mz_gym01</a>
                     <a href="mailto:fightacademychampionfactory@gmail.com"><i class="fas fa-envelope"></i> fightacademychampionfactory@gmail.com</a>
                 </div>
             </div>
             <div class="copyright">
-                <p>© 2026 MZ GYM Mornag — Tous droits réservés</p>
+                <p>© 2025 MZ GYM Mornag — Tous droits réservés</p>
             </div>
         </div>
     </footer>
