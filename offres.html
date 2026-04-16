@@ -105,9 +105,59 @@
             margin: 0 auto;
         }
         
+        /* Prix Principal */
+        .main-price {
+            background: linear-gradient(135deg, #FFD70020, #FFA50010);
+            border: 2px solid #FFD700;
+            border-radius: 60px;
+            padding: 30px 40px;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 500px;
+        }
+        .main-price .price-badge {
+            background: #FFD700;
+            color: #1a1a1a;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .main-price .price-amount {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #FFD700;
+        }
+        .main-price .price-amount small {
+            font-size: 1rem;
+            color: #aaa;
+        }
+        .main-price p {
+            margin-top: 10px;
+            color: #ccc;
+        }
+        .btn-main {
+            background: linear-gradient(95deg, #FFD700, #FFA500);
+            padding: 14px 40px;
+            border-radius: 50px;
+            color: #1a1a1a;
+            font-weight: 800;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            transition: 0.2s;
+        }
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255,215,0,0.4);
+        }
+        
         /* Offres Grid */
         .offres-section {
-            padding: 80px 0;
+            padding: 60px 0;
         }
         .section-title {
             text-align: center;
@@ -123,8 +173,8 @@
         }
         .offres-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
         .offre-card {
             background: #0f0f0f;
@@ -139,7 +189,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
         .offre-image {
-            height: 220px;
+            height: 200px;
             overflow: hidden;
             position: relative;
         }
@@ -160,52 +210,37 @@
             color: #1a1a1a;
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
         }
         .offre-content {
-            padding: 25px;
+            padding: 20px;
+            text-align: center;
         }
         .offre-content h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #FFD700;
             margin-bottom: 10px;
         }
         .offre-content p {
             color: #bbb;
             margin-bottom: 15px;
-            line-height: 1.6;
+            line-height: 1.5;
+            font-size: 0.9rem;
         }
-        .offre-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #222;
-        }
-        .offre-price {
-            font-size: 1.8rem;
-            font-weight: 800;
+        .offre-icon {
+            font-size: 2.5rem;
             color: #FFD700;
+            margin-bottom: 10px;
         }
-        .offre-price small {
-            font-size: 0.8rem;
-            color: #888;
-        }
-        .btn-offre {
-            background: linear-gradient(95deg, #FFD700, #FFA500);
-            padding: 10px 25px;
-            border-radius: 30px;
-            color: #1a1a1a;
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.2s;
+        .included-badge {
+            background: rgba(255,215,0,0.2);
             display: inline-block;
-        }
-        .btn-offre:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            color: #FFD700;
+            margin-top: 10px;
         }
         
         /* Contact Bar */
@@ -327,6 +362,13 @@
             .section-title {
                 font-size: 1.8rem;
             }
+            .main-price {
+                margin: 20px;
+                padding: 20px;
+            }
+            .main-price .price-amount {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -363,23 +405,29 @@
 
         <section class="offres-section">
             <div class="container">
-                <h2 class="section-title">🔥 NOS ACTIVITÉS</h2>
-                <p class="section-sub">Des cours variés encadrés par des coachs professionnels</p>
+                <!-- Prix Principal -->
+                <div class="main-price">
+                    <div class="price-badge">⭐ OFFRE UNIQUE ⭐</div>
+                    <div class="price-amount">130 DT <small>/mois</small></div>
+                    <p>Accès ILLIMITÉ à TOUS les cours et activités</p>
+                    <a href="index.html#contact" class="btn-main">🛡️ Je m'inscris maintenant</a>
+                </div>
+
+                <h2 class="section-title">🔥 NOS ACTIVITÉS INCLUSES</h2>
+                <p class="section-sub">Un seul abonnement, accès complet à tous nos cours</p>
                 
                 <div class="offres-grid">
                     <!-- Musculation -->
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t39.30808-6/538031836_1175187521299749_4623600522031904389_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzcwNTcyNDU3ODIyMTI5MzY0MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=5nHJIS0TLusQ7kNvwFtQRiI&_nc_oc=AdqWD0YsfPHQwnHXkwo6lYa_bdcrqi1Fn5lDWUfEcnHNFNGAl-pOWhHjH_5LzP1Vf_E&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=QXoa8S9QLIsLFaP4K0kKjw&_nc_ss=7a32e&oh=00_Af1K2WcbWaN2J4RBAuJVeYUZOJHN7EuZUazYQGCTRTfQTw&oe=69E54461" alt="Musculation">
-                            <div class="offre-badge">POPULAIRE</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
-                            <h3>💪 MUSCULATION </h3>
+                            <div class="offre-icon"><i class="fas fa-dumbbell"></i></div>
+                            <h3>💪 MUSCULATION</h3>
                             <p>Sculptez votre corps, perte de poids et tonification musculaire. Programme adapté pour hommes et femmes.</p>
-                            <div class="offre-details">
-                                <span class="offre-price">120 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
@@ -387,15 +435,13 @@
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t39.30808-6/548196468_1195728795912288_6926534971215085698_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzcyMzg5MzExNDcyMjA3NTI1NA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=Og3PYxr3N6IQ7kNvwFPcBr-&_nc_oc=AdpSRtbbVZ_24K1ITmLHxWHmVa-Nj9svVqZZxJodcgX2LRSwE7VgBkut1CY2ne8ZBE0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=IqPcnAKLM_h3TzDaTxWpqw&_nc_ss=7a32e&oh=00_Af1Ook2NiUx0pXk91ns9frAXmVkluFFSXy4Cfm4H01ETmw&oe=69E52C13" alt="Body Combat">
-                            <div class="offre-badge">CARDIO</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-fist-raised"></i></div>
                             <h3>🥊 BODY COMBAT</h3>
                             <p>Art martial inspiré des sports de combat. Cardio intense, défoulement et conditionnement physique.</p>
-                            <div class="offre-details">
-                                <span class="offre-price">80 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
@@ -403,15 +449,13 @@
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t51.82787-15/669871054_17888646381464880_5711590819022802852_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=Mzg3Mzg4OTYxMDUzNTMwNDg5Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=_qRQZDVrzeAQ7kNvwGl44wB&_nc_oc=AdpiTdoaDcs3i3OToN3c0rHZ1bbF0ska-2ZRTkB0zM7tTgV7QPfa-l20rspN-C1PPQo&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=UHAyjWYPic3SBF9BbhjmUw&_nc_ss=7a32e&oh=00_Af3ufqcdB1DfXCEtnJY2sx122gnYT74-C13g8ZXg2A5eUg&oe=69E540BD" alt="Boxe Anglaise">
-                            <div class="offre-badge">TECHNIQUE</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-boxing-glove"></i></div>
                             <h3>👊 BOXE ANGLAISE</h3>
                             <p>Technique, précision, défoulement et conditionnement physique. Cours pour débutants et confirmés.</p>
-                            <div class="offre-details">
-                                <span class="offre-price">80 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
@@ -419,15 +463,13 @@
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t39.30808-6/599720380_1271055898379577_7011179579797804750_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=Mzc4ODM4MjIwMTM1MzU0MDY1MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=rArvKfuAdfUQ7kNvwGPJOT9&_nc_oc=Adq0dyIkbrhvJDIbEYDNNEBniKenE6PA8kbUCl8aFIiWbTst82QK9C4sD99-3hQHFgQ&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=yhMqVgU3YPkgVlOsWL2Wdg&_nc_ss=7a32e&oh=00_Af2j_--U-gbCy_j5OFkagC1QwsUgT72rzX_10qcPjsSUuA&oe=69E54DC5" alt="Danse Orientale">
-                            <div class="offre-badge">BIEN-ÊTRE</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-music"></i></div>
                             <h3>💃 DANSE ORIENTALE</h3>
                             <p>Renforcement musculaire doux, souplesse et bien-être. Accessible à tous les niveaux.</p>
-                            <div class="offre-details">
-                                <span class="offre-price">80 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
@@ -435,63 +477,55 @@
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t51.82787-15/580503472_17870015589464880_5723843893663690141_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=Mzc2MzczMTQyMTAzMTA3MjQzMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEyODB4MTYwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=SIBBhtfh0jAQ7kNvwHA_AqX&_nc_oc=AdptDNGdSNwDmTYc2DXO136qVCln5WiNsvSK-P5WV14QBtTSmGQJkOrA0GUuqaclzFw&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=XLR9jPMA8Nz8cWP7anyhyA&_nc_ss=7a32e&oh=00_Af19-h_4cJJX1IPnasXiu1Lfn4egYqKgNsv4yFUFImmUIw&oe=69E534C6" alt="Zumba Step">
-                            <div class="offre-badge">FUN</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-shoe-prints"></i></div>
                             <h3>🎵 ZUMBA STEP</h3>
                             <p>Fitness énergique sur des rythmes latinos. Brûlez des calories en vous amusant !</p>
-                            <div class="offre-details">
-                                <span class="offre-price">199 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
-                    <!-- CARDIO - NOUVEAU -->
+                    <!-- Cardio Training -->
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t39.30808-6/574078200_1232889108862923_1426891595386932867_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ig_cache_key=Mzc1NDA2MzkwMTQzMzAxNzgwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=lZBLXT9vEq4Q7kNvwE66Xq7&_nc_oc=Adq4xw-KO-Q7kELPsyc4OYyDBwr1EePgCgtYL1KIN8uyd00cisn3d0CAXG0JKna2NYU&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=v41wyDRJRuozIUXFulaJsA&_nc_ss=7a32e&oh=00_Af3GF-7xNC3czjMdsplMZMhzLriR61n5VZxvEzzdHPewMw&oe=69E536F8" alt="Cardio">
-                            <div class="offre-badge">ENDURANCE</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-heartbeat"></i></div>
                             <h3>❤️ CARDIO TRAINING</h3>
                             <p>Améliorez votre endurance et brûlez des calories avec nos séances cardio intensives (tapis, rameur, vélo).</p>
-                            <div class="offre-details">
-                                <span class="offre-price">100 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
-                    <!-- TOTAL BODY WORKOUT - NOUVEAU -->
+                    <!-- Total Body Workout -->
                     <div class="offre-card">
                         <div class="offre-image">
                             <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t39.30808-6/574083561_1232806308871203_7963969896986504813_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc1Mzk3MzA1MDQzNDgxODgxMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwODB4MTM1MC5zZHIuQzMifQ%3D%3D&_nc_ohc=QxgrdzguhlUQ7kNvwHfaLA5&_nc_oc=Adp2HExqZlYzZkN2-zl7Zs4EeYp5UHN_V4JN3pScypwOx-cabw70sgfGJ5TdniF8QxY&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=v41wyDRJRuozIUXFulaJsA&_nc_ss=7a32e&oh=00_Af1NGzbe1ynlXjYRA8fqakAVY0jR4FpyIL_SFa75n2gy5A&oe=69E53C2A" alt="Total Body Workout">
-                            <div class="offre-badge">COMPLET</div>
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
+                            <div class="offre-icon"><i class="fas fa-running"></i></div>
                             <h3>🏋️ TOTAL BODY WORKOUT</h3>
                             <p>Entraînement complet qui sollicite tous les groupes musculaires. Force, endurance et mobilité.</p>
-                            <div class="offre-details">
-                                <span class="offre-price">120 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
 
-                    <!-- Abonnement Premium -->
+                    <!-- Booty Shape -->
                     <div class="offre-card">
                         <div class="offre-image">
-                            <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t51.82787-15/626206826_17880267951464880_7980346192754511790_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzgzMDMwNTU5NTU0MzAyNDg3Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=nbb7SuTDqskQ7kNvwGfAdRS&_nc_oc=AdptFtY1TS7h6Cvb5K58ouGJi1EGIvfgghgQCsDDBVawLn73xVJFtB9iufqvSwIohyA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=Dht3GOijKcdxbBTEFfRaAQ&_nc_ss=7a32e&oh=00_Af2OVuHX6y7q7NZbKvpHf3YjfJk_Zrf62JO-JTCsOVnLzQ&oe=69E526ED" alt="Premium">
-                            <div class="offre-badge">STRENGTHEN</div>
+                            <img src="https://instagram.ftun14-1.fna.fbcdn.net/v/t51.82787-15/626206826_17880267951464880_7980346192754511790_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzgzMDMwNTU5NTU0MzAyNDg3Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNTB4MTY4OC5zZHIuQzMifQ%3D%3D&_nc_ohc=nbb7SuTDqskQ7kNvwGfAdRS&_nc_oc=AdptFtY1TS7h6Cvb5K58ouGJi1EGIvfgghgQCsDDBVawLn73xVJFtB9iufqvSwIohyA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.ftun14-1.fna&_nc_gid=Dht3GOijKcdxbBTEFfRaAQ&_nc_ss=7a32e&oh=00_Af2OVuHX6y7q7NZbKvpHf3YjfJk_Zrf62JO-JTCsOVnLzQ&oe=69E526ED" alt="Booty Shape">
+                            <div class="offre-badge">INCLUS</div>
                         </div>
                         <div class="offre-content">
-                            <h3>BOOTY SHAPE</h3>
-                            <p>Shape, lift, strengthen… and join us for the ultimate lower-body session!</p>
-                            <div class="offre-details">
-                                <span class="offre-price">80 DT<span style="font-size:0.8rem;">/mois</span></span>
-                                <a href="index.html#contact" class="btn-offre">Je m'inscris</a>
-                            </div>
+                            <div class="offre-icon"><i class="fas fa-fire"></i></div>
+                            <h3>🍑 BOOTY SHAPE</h3>
+                            <p>Shape, lift, strengthen… Rejoignez-nous pour la meilleure séance bas du corps !</p>
+                            <div class="included-badge">✓ Inclus dans l'abonnement 130 DT</div>
                         </div>
                     </div>
                 </div>
@@ -501,8 +535,8 @@
         <section class="contact-bar">
             <div class="container">
                 <h3>📞 PRÊT À RELEVER LE DÉFI ?</h3>
-                <p>Contactez-nous pour un essai gratuit ou plus d'informations</p>
-                <a href="index.html#contact" class="btn-dark">Nous Contacter</a>
+                <p>130 DT par mois → Accès illimité à TOUS nos cours</p>
+                <a href="index.html#contact" class="btn-dark">Je m'inscris maintenant</a>
             </div>
         </section>
     </main>
